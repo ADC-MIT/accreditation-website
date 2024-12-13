@@ -29,7 +29,7 @@ export const viewport: Viewport = {
   ],
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -39,7 +39,7 @@ export default async function RootLayout({
       <head />
       <body
         className={cn(
-          'bg-sidebar relative flex min-h-screen flex-col font-sans antialiased',
+          'relative flex min-h-screen flex-col bg-background font-sans antialiased',
           fontSans.variable,
           fontMono.variable
         )}
