@@ -1,3 +1,5 @@
+import { RootProvider } from 'fumadocs-ui/provider';
+
 import type { Metadata, Viewport } from 'next';
 
 import { siteConfig } from '@/config/site';
@@ -45,7 +47,7 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+          <RootProvider>{children}</RootProvider>
           <TailwindIndicator />
           <Toaster />
         </ThemeProvider>
