@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 
 import { source } from '@/lib/source';
 
-import { baseOptions } from '@/app/layout.config';
+import { baseOptions } from '@/app/docs/layout.config';
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (

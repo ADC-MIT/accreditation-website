@@ -1,5 +1,7 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 
+import { siteConfig } from '@/config/site';
+
 /**
  * Shared layout configurations
  *
@@ -9,7 +11,7 @@ import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
  */
 export const baseOptions: BaseLayoutProps = {
   nav: {
-    title: 'My App',
+    title: siteConfig.name,
   },
   links: [
     {
