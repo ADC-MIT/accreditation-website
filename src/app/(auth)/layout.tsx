@@ -38,7 +38,7 @@ export default function AuthLayout({
                 className="stroke-white"
               />
             </svg>
-            helpdesk.
+            accreditation.
           </div>
         </div>
         <div className="relative z-20 mt-auto">
