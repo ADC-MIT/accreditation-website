@@ -2,7 +2,7 @@ import React from 'react';
 
 import AppHeader from '@/components/app-header';
 
-export default function AppLayout({
+export default function CoreLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

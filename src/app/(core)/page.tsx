@@ -1,5 +1,3 @@
-import { Building } from 'lucide-react';
-
 import { Badge } from '@/components/ui/badge';
 import {
   Card,
@@ -8,7 +6,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
-export default function AppPage() {
+export default function CorePage() {
   return (
     <>
       <Card className="shadow-md">
