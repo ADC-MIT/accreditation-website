@@ -13,6 +13,11 @@ const config: Config = {
   presets: [createPreset()],
   plugins: [require('tailwindcss-animate')],
   theme: {
+    fontFamily: {
+      heading: ['var(--font-heading)', 'ui-serif'],
+      sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui'],
+      mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular'],
+    },
     extend: {
       borderRadius: {
         lg: 'var(--radius)',

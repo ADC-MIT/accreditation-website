@@ -4,7 +4,7 @@ import type { Metadata, Viewport } from 'next';
 
 import { siteConfig } from '@/config/site';
 
-import { fontMono, fontSans } from '@/lib/fonts';
+import { fontHeading, fontMono, fontSans } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 
 import { TailwindIndicator } from '@/components/tailwind-indicator';
@@ -41,6 +41,7 @@ export default function RootLayout({
       <body
         className={cn(
           'relative flex min-h-screen flex-col font-sans antialiased',
+          fontHeading.variable,
           fontSans.variable,
           fontMono.variable
         )}
