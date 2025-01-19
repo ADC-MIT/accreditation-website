@@ -61,11 +61,11 @@ export default function CorePage() {
             className="group relative cursor-pointer overflow-hidden shadow-sm transition-colors duration-300 hover:bg-accent"
             onClick={() => router.push(item.link)}
           >
-            <CardHeader className="pb-24">
+            <CardHeader className="relative z-10 pb-24">
               <CardTitle className="tracking-normal">{item.title}</CardTitle>
               <CardDescription>{item.description}</CardDescription>
             </CardHeader>
-            <div className="absolute -bottom-8 -right-4">
+            <div className="absolute -bottom-8 -right-4 z-0">
               <item.icon
                 strokeWidth={1.5}
                 className="size-24 text-muted transition-colors duration-300 group-hover:text-[#f0981d]"

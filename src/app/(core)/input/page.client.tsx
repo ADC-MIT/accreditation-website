@@ -26,7 +26,7 @@ function navigateToInputForm(
       new Promise((resolve) => {
         router.push(`/input/${formId}`);
         // Simulate a delay to show the loading state
-        setTimeout(resolve, 1000);
+        setTimeout(resolve, 500);
       }),
     {
       loading: 'Loading form details...',
