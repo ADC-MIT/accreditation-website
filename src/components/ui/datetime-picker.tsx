@@ -1,3 +1,5 @@
+'use client';
+
 import { add, format } from 'date-fns';
 import { type Locale, enUS } from 'date-fns/locale';
 import {
