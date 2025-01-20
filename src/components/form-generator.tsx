@@ -1,8 +1,19 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
 import { FormDetails, FormField } from '@/types/input';
 
 import { DateTimePicker, TimePicker } from '@/components/ui/datetime-picker';
+import {
+  Form,
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormField as ShadcnFormField,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { MultiInput } from '@/components/ui/multi-input';
 import {
   Select,
@@ -14,14 +25,67 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 
-export function FormGenerator({ form }: { form: FormDetails }) {
-  const renderField = (field: FormField) => {
+import { Button } from './ui/button';
+
+function generateZodSchema(form: FormDetails) {
+  const shape: Record<string, any> = {};
+  form.fields.forEach((field) => {
+    let schema;
+    switch (field.fieldType) {
+      case 'input':
+        switch (field.inputOptions?.inputType) {
+          case 'boolean':
+            schema = z.boolean();
+            break;
+          case 'number':
+            schema = z.number();
+            break;
+          case 'date':
+          case 'datetime':
+          case 'time':
+            schema = z.date();
+            break;
+          default:
+            schema = z.string();
+        }
+        break;
+      case 'choice':
+        schema = z.string();
+        break;
+      default:
+        // static or unrecognized fields won't be in form data
+        return;
+    }
+    shape[field.id] = field.required ? schema : schema.optional();
+  });
+  return z.object(shape);
+}
+
+export function FormGenerator({
+  form,
+  onSubmit,
+}: {
+  form: FormDetails;
+  onSubmit?: (data: any) => void;
+}) {
+  const schema = generateZodSchema(form);
+  const formMethods = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
+    defaultValues: {},
+  });
+
+  const handleSubmission = (data: any) => {
+    if (onSubmit) onSubmit(data);
+    else console.log(data);
+  };
+
+  const renderField = (field: FormField, rhfField: any) => {
     switch (field.fieldType) {
       case 'input':
         switch (field.inputOptions?.inputType) {
           case 'boolean':
             return (
-              <Select>
+              <Select {...rhfField}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select an option" />
                 </SelectTrigger>
@@ -32,21 +96,21 @@ export function FormGenerator({ form }: { form: FormDetails }) {
               </Select>
             );
           case 'date':
-            return <DateTimePicker granularity="day" />;
+            return <DateTimePicker granularity="day" {...rhfField} />;
           case 'datetime':
-            return <DateTimePicker granularity="minute" />;
+            return <DateTimePicker granularity="minute" {...rhfField} />;
           case 'multi-input':
-            return <MultiInput />;
+            return <MultiInput {...rhfField} />;
           case 'number':
-            return <Input type="number" />;
+            return <Input type="number" {...rhfField} />;
           case 'string':
-            return <Input />;
+            return <Input {...rhfField} />;
           case 'textarea':
-            return <Textarea />;
+            return <Textarea {...rhfField} />;
           case 'time':
             return (
               <div className="flex justify-start">
-                <TimePicker granularity="minute" />
+                <TimePicker granularity="minute" {...rhfField} />
               </div>
             );
         }
@@ -54,7 +118,7 @@ export function FormGenerator({ form }: { form: FormDetails }) {
         switch (field.choiceOptions?.choiceSource) {
           case 'enum':
             return (
-              <Select>
+              <Select {...rhfField}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select an option" />
                 </SelectTrigger>
@@ -70,7 +134,7 @@ export function FormGenerator({ form }: { form: FormDetails }) {
           case 'table':
             // TODO: Implement table source
             return (
-              <Select>
+              <Select {...rhfField}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select an option" />
                 </SelectTrigger>
@@ -107,27 +171,35 @@ export function FormGenerator({ form }: { form: FormDetails }) {
     }
   };
 
-  const renderFieldWithLabel = (field: FormField) => {
-    if (field.fieldType === 'static') {
-      return renderField(field);
-    }
-
-    return (
-      <div className="space-y-2">
-        <Label>
-          {field.label}{' '}
-          {field.required && <span className="text-destructive">*</span>}
-        </Label>
-        {renderField(field)}
-      </div>
-    );
-  };
-
   return (
-    <form className="grid grid-cols-2 gap-4">
-      {form.fields.map((field) => (
-        <div key={field.id}>{renderFieldWithLabel(field)}</div>
-      ))}
-    </form>
+    <Form {...formMethods}>
+      <form
+        onSubmit={formMethods.handleSubmit(handleSubmission)}
+        className="grid grid-cols-2 gap-4"
+      >
+        {form.fields.map((field) => (
+          <ShadcnFormField
+            key={field.id}
+            control={formMethods.control}
+            name={field.id}
+            render={({ field: rhfField }) => (
+              <FormItem>
+                <FormLabel>
+                  {field.label}{' '}
+                  {field.required && (
+                    <span className="text-destructive">*</span>
+                  )}
+                </FormLabel>
+                <FormControl>{renderField(field, rhfField)}</FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        ))}
+        <div className="col-span-2 flex justify-end">
+          <Button type="submit">Submit</Button>
+        </div>
+      </form>
+    </Form>
   );
 }
