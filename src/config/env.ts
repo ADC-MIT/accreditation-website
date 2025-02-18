@@ -4,7 +4,8 @@ interface RuntimeEnv {
 
 function createEnv(): RuntimeEnv {
   const config: Partial<RuntimeEnv> = {
-    BACKEND_URL: 'http://localhost:8000/api',
+    BACKEND_URL:
+      process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000/api',
   };
 
   for (const [key, value] of Object.entries(config)) {
