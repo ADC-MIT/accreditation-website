@@ -1,15 +1,15 @@
 'use client';
 
 import { FileText, FolderInput, Globe, NotebookPen } from 'lucide-react';
-
 import { useRouter } from 'next/navigation';
-
+import { useState } from 'react';
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import ExportButton from './pdf'; 
 
 const items = [
   {
@@ -34,6 +34,12 @@ const items = [
 
 export default function CorePage() {
   const router = useRouter();
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+
+  const handleGeneratePdf = () => {
+    setIsGeneratingPdf(true);
+    setTimeout(() => setIsGeneratingPdf(false), 3000); 
+  };
 
   return (
     <div className="flex flex-col space-y-8">
@@ -51,9 +57,11 @@ export default function CorePage() {
           <Globe className="size-36 text-muted" />
         </div>
       </Card>
+
       <h1 className="flex justify-center font-heading text-xl font-bold text-muted-foreground">
         What would you like to do today?
       </h1>
+
       <div className="grid grid-cols-3 gap-4">
         {items.map((item) => (
           <Card
@@ -73,6 +81,38 @@ export default function CorePage() {
             </div>
           </Card>
         ))}
+      </div>
+
+      <div className="flex justify-center mt-8">
+        <ExportButton
+          title="Institution Name"
+          description="This is a sample description from the backend."
+          tableData={[
+            {
+              sectionTitle: '5.1.1 Student Support',
+              data: [
+                {
+                  Year: '2023',
+                  'Name of Scheme': 'National Scholarship',
+                  'Students (Govt)': 150,
+                  'Amount (Govt)': '750000 INR',
+                  'Students (Institutional)': 50,
+                  'Amount (Institutional)': '250000 INR',
+                },
+              ],
+            },
+            {
+              sectionTitle: '6.2.3 E-Governance',
+              data: [
+                {
+                  Area: 'Administration',
+                  Year: '2023',
+                  Link: 'https://example.com/administration',
+                },
+              ],
+            },
+          ]}
+        />
       </div>
     </div>
   );
