@@ -8,11 +8,9 @@ description: Detailed documentation for the `auth` table in the database schema.
 This page documents the `auth` table in the database schema. The `auth` table stores authentication details such as passwords and last login timestamps for users.
 
 ## Table Schema
-'use client'
-import { TypeTable } from 'fumadocs-ui/components/type-table';
 
 <TypeTable
-  data={{
+  type={{
     id: {
       type: 'uuid',
       description: 'Primary key of the table, references the users table.',
@@ -23,11 +21,12 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
     },
     last_login: {
       type: 'timestamp',
-      description: 'Timestamp of the user's last login. Can be null.',
+      description: "Timestamp of the user's last login. Can be null.",
     },
     requires_reset: {
       type: 'boolean',
-      description: 'Indicates whether the user must reset their password upon login.',
+      description:
+        'Indicates whether the user must reset their password upon login.',
       default: 'false',
     },
   }}

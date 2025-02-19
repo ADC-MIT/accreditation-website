@@ -9,10 +9,8 @@ The `journals` table stores details about academic and research journals, includ
 
 ## Table Schema
 
-import { TypeTable } from 'fumadocs-ui/components/type-table';
-
 <TypeTable
-  data={{
+  type={{
     id: {
       type: 'uuid',
       description: 'Primary key of the table, uniquely identifies a journal.',
@@ -23,11 +21,13 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
     },
     frequency: {
       type: 'JOURNAL_FREQUENCY',
-      description: 'The publication frequency of the journal (e.g., monthly, quarterly, annual).',
+      description:
+        'The publication frequency of the journal (e.g., monthly, quarterly, annual).',
     },
     type: {
       type: 'JOURNAL_PUBLICATION_TYPE',
-      description: 'The type of journal publication (e.g., open-access, subscription-based).',
+      description:
+        'The type of journal publication (e.g., open-access, subscription-based).',
     },
     scopus_indexed: {
       type: 'boolean',
@@ -35,4 +35,3 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
     },
   }}
 />
-

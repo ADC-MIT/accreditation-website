@@ -9,13 +9,12 @@ The `journal_publications` table stores details about publications in academic j
 
 ## Table Schema
 
-import { TypeTable } from 'fumadocs-ui/components/type-table';
-
 <TypeTable
-  data={{
+  type={{
     id: {
       type: 'uuid',
-      description: 'Primary key of the table, uniquely identifies a journal publication.',
+      description:
+        'Primary key of the table, uniquely identifies a journal publication.',
     },
     journal_id: {
       type: 'uuid',
@@ -23,15 +22,18 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
     },
     journal_volume_number: {
       type: 'int',
-      description: 'The volume number of the journal where the article is published.',
+      description:
+        'The volume number of the journal where the article is published.',
     },
     journal_issue_number: {
       type: 'int',
-      description: 'The issue number of the journal where the article is published.',
+      description:
+        'The issue number of the journal where the article is published.',
     },
     sponsor_id: {
       type: 'uuid',
-      description: 'Foreign key referencing the `sponsorships` table, if the publication was funded.',
+      description:
+        'Foreign key referencing the `sponsorships` table, if the publication was funded.',
     },
     year: {
       type: 'int',
@@ -56,4 +58,3 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
 
 - `journal_id` references `id` in the `journals` table.
 - `sponsor_id` references `id` in the `sponsorships` table.
-

@@ -8,11 +8,9 @@ description: Detailed documentation for the `users` table in the database schema
 This page documents the `users` table in the database schema. The `users` table stores information about system users, such as their names and email addresses.
 
 ## Table Schema
-'use client'
-import { TypeTable } from 'fumadocs-ui/components/type-table';
- 
+
 <TypeTable
-  data={{
+  type={{
     id: {
       type: 'uuid',
       description: 'Primary key of the table, uniquely identifies a user.',
@@ -35,6 +33,7 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
     },
   }}
 />
+;
 
 ## Relationships
 

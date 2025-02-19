@@ -9,13 +9,12 @@ This page documents the `students` table in the database schema. The `students` 
 
 ## Table Schema
 
-import { TypeTable } from 'fumadocs-ui/components/type-table';
-
 <TypeTable
-  data={{
+  type={{
     id: {
       type: 'uuid',
-      description: 'Primary key of the table, uniquely identifies a student. References users.id.',
+      description:
+        'Primary key of the table, uniquely identifies a student. References users.id.',
     },
     admission_no: {
       type: 'varchar(50)',
@@ -63,7 +62,8 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
     },
     social_disadvantage: {
       type: 'SOCIAL_DISADVANTAGE',
-      description: 'Indicates if the student belongs to a socially disadvantaged group.',
+      description:
+        'Indicates if the student belongs to a socially disadvantaged group.',
       nullable: true,
     },
     economic_disadvantage: {

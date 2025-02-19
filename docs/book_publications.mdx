@@ -9,10 +9,8 @@ The `book_publications` table contains records of books published, including met
 
 ## Table Schema
 
-import { TypeTable } from 'fumadocs-ui/components/type-table';
-
 <TypeTable
-  data={{
+  type={{
     id: {
       type: 'uuid',
       description: 'Primary key for the book publication record.',
@@ -35,7 +33,8 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
     },
     type: {
       type: 'BOOK_PUBLICATION_TYPE',
-      description: 'Type of book publication (e.g., textbook, reference book, etc.).',
+      description:
+        'Type of book publication (e.g., textbook, reference book, etc.).',
     },
   }}
 />
@@ -44,4 +43,3 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
 
 - The `semester` field is an enum of type `ACADEMIC_SEMESTER`.
 - The `type` field is an enum of type `BOOK_PUBLICATION_TYPE`.
-

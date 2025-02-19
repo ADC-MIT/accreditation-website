@@ -9,13 +9,12 @@ This page documents the `faculty` table, which stores details about faculty memb
 
 ## Table Schema
 
-import { TypeTable } from 'fumadocs-ui/components/type-table';
-
 <TypeTable
-  data={{
+  type={{
     id: {
       type: 'uuid',
-      description: 'Primary key, uniquely identifies a faculty member. References `users.id`.',
+      description:
+        'Primary key, uniquely identifies a faculty member. References `users.id`.',
     },
     employee_id: {
       type: 'varchar(50)',
@@ -23,7 +22,8 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
     },
     department_id: {
       type: 'uuid',
-      description: 'References `departments.id`, indicating faculty department.',
+      description:
+        'References `departments.id`, indicating faculty department.',
     },
     designation: {
       type: 'varchar(100)',
@@ -79,7 +79,8 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
     },
     currently_associated: {
       type: 'bool',
-      description: 'Indicates if the faculty is currently associated. Default is true.',
+      description:
+        'Indicates if the faculty is currently associated. Default is true.',
     },
     date_of_leave: {
       type: 'date',

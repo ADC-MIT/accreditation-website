@@ -9,17 +9,17 @@ The `faculty_sponsored_research_projects_consultancy_work_institute_seed_money` 
 
 ## Table Schema
 
-import { TypeTable } from 'fumadocs-ui/components/type-table';
-
 <TypeTable
-  data={{
+  type={{
     type: {
       type: 'FACULTY_SRPCWISM_TYPE',
-      description: 'Specifies the type of project, consultancy, or seed funding.',
+      description:
+        'Specifies the type of project, consultancy, or seed funding.',
     },
     name_of_principal_investigator: {
       type: 'text',
-      description: 'Name of the principal investigator (PI) responsible for the project.',
+      description:
+        'Name of the principal investigator (PI) responsible for the project.',
     },
     name_of_co_principal_investigator: {
       type: 'text',
@@ -28,7 +28,8 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
     },
     department_id: {
       type: 'uuid',
-      description: 'References the `id` field in the `departments` table, representing the associated department.',
+      description:
+        'References the `id` field in the `departments` table, representing the associated department.',
       nullable: true,
     },
     project_title: {
@@ -45,11 +46,13 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
     },
     amount_inr: {
       type: 'int',
-      description: 'The total funding amount received for the project (in INR).',
+      description:
+        'The total funding amount received for the project (in INR).',
     },
     outcomes: {
       type: 'text',
-      description: 'Key outcomes or impact of the research or consultancy project.',
+      description:
+        'Key outcomes or impact of the research or consultancy project.',
     },
   }}
 />

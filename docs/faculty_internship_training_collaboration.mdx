@@ -9,21 +9,21 @@ The `faculty_internship_training_collaboration` table records information about 
 
 ## Table Schema
 
-import { TypeTable } from 'fumadocs-ui/components/type-table';
-
 <TypeTable
-  data={{
+  type={{
     faculty_id: {
       type: 'uuid',
       description: 'References the `id` field in the `faculty` table.',
     },
     name_of_itc: {
       type: 'text',
-      description: 'The name of the internship, training, or collaboration (ITC).',
+      description:
+        'The name of the internship, training, or collaboration (ITC).',
     },
     name_of_company: {
       type: 'text',
-      description: 'The name of the company or institution, including location.',
+      description:
+        'The name of the company or institution, including location.',
     },
     type: {
       type: 'FACULTY_ITC_TYPE',
@@ -39,4 +39,3 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
 ## Relationships
 
 - `faculty_id` references the `id` field in the `faculty` table.
-

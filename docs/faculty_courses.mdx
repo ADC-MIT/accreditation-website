@@ -9,10 +9,8 @@ The `faculty_courses` table records information about courses associated with fa
 
 ## Table Schema
 
-import { TypeTable } from 'fumadocs-ui/components/type-table';
-
 <TypeTable
-  data={{
+  type={{
     faculty_id: {
       type: 'uuid',
       description: 'References the `id` field in the `faculty` table.',
@@ -23,7 +21,8 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
     },
     developed: {
       type: 'bool',
-      description: 'Indicates whether the course was developed by the faculty member.',
+      description:
+        'Indicates whether the course was developed by the faculty member.',
       default: 'false',
     },
   }}
@@ -32,4 +31,3 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
 ## Relationships
 
 - `faculty_id` references the `id` field in the `faculty` table.
-

@@ -9,10 +9,8 @@ The `journal_publication_authors` table establishes a relationship between journ
 
 ## Table Schema
 
-import { TypeTable } from 'fumadocs-ui/components/type-table';
-
 <TypeTable
-  data={{
+  type={{
     publication_id: {
       type: 'uuid',
       description: 'Foreign key referencing the `journal_publications` table.',
@@ -36,4 +34,3 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
 
 - `publication_id` references `id` in the `journal_publications` table.
 - `author_id` references `id` in the `users` table.
-

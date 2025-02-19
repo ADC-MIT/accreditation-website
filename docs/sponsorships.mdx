@@ -9,13 +9,12 @@ The `sponsorships` table records details of sponsorships received, including the
 
 ## Table Schema
 
-import { TypeTable } from 'fumadocs-ui/components/type-table';
-
 <TypeTable
-  data={{
+  type={{
     id: {
       type: 'uuid',
-      description: 'Primary key of the table, uniquely identifies a sponsorship record.',
+      description:
+        'Primary key of the table, uniquely identifies a sponsorship record.',
     },
     agency_name: {
       type: 'text',
@@ -35,4 +34,3 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
     },
   }}
 />
-

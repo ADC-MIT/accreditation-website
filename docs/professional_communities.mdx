@@ -9,17 +9,17 @@ The `professional_communities` table records faculty members' involvement in var
 
 ## Table Schema
 
-import { TypeTable } from 'fumadocs-ui/components/type-table';
-
 <TypeTable
-  data={{
+  type={{
     faculty_id: {
       type: 'uuid',
-      description: 'References the `faculty.id` field, linking a faculty member to their professional community.',
+      description:
+        'References the `faculty.id` field, linking a faculty member to their professional community.',
     },
     name_of_society: {
       type: 'text',
-      description: 'The name of the professional society the faculty member is associated with.',
+      description:
+        'The name of the professional society the faculty member is associated with.',
     },
     position: {
       type: 'text',
