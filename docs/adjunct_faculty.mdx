@@ -1,0 +1,37 @@
+---
+title: Adjunct Faculty Table
+description: Documentation for the `adjunct_faculty` table in the database schema.
+---
+
+# Adjunct Faculty Table
+
+This page documents the `adjunct_faculty` table, which stores information about adjunct faculty members and their workload.
+
+## Table Schema
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+<TypeTable
+  data={{
+    faculty_id: {
+      type: 'uuid',
+      description: 'Foreign key referencing the `faculty.id` field.',
+    },
+    hours_handled: {
+      type: 'int',
+      description: 'Number of hours allotted to visiting faculty (Ad-Hoc faculty).',
+    },
+    subjects: {
+      type: 'text[]',
+      description: 'Array of subjects handled by the adjunct faculty member.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `faculty_id` field references the `id` column in the `faculty` table.
+
+<Cards>
+  <Card title="Go to Faculty Table" href="/faculty" />
+</Cards>

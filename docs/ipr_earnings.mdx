@@ -1,0 +1,34 @@
+---
+title: IPR Earnings Table
+description: Documentation for the `ipr_earnings` table, which stores financial earnings from Intellectual Property Rights (IPR).
+---
+
+# IPR Earnings Table
+
+The `ipr_earnings` table records financial details related to earnings from Intellectual Property Rights (IPR), including the associated IPR ID, financial year, and amount in INR.
+
+## Table Schema
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+<TypeTable
+  data={{
+    ipr_id: {
+      type: 'uuid',
+      description: 'Primary key referencing the IPR for which earnings are recorded.',
+    },
+    financial_year: {
+      type: 'int',
+      description: 'The financial year in which the earnings were recorded.',
+    },
+    amount_inr: {
+      type: 'int',
+      description: 'The amount earned in INR from the IPR.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `ipr_id` field references the `id` field in the `ipr` table.
+

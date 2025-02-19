@@ -1,0 +1,38 @@
+---
+title: Journals Table
+description: Documentation for the `journals` table, which stores information about academic journals, their frequency, type, and indexing status.
+---
+
+# Journals Table
+
+The `journals` table stores details about academic and research journals, including their publication frequency, type, and whether they are indexed in Scopus.
+
+## Table Schema
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+<TypeTable
+  data={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies a journal.',
+    },
+    name: {
+      type: 'varchar(50)',
+      description: 'The name of the journal.',
+    },
+    frequency: {
+      type: 'JOURNAL_FREQUENCY',
+      description: 'The publication frequency of the journal (e.g., monthly, quarterly, annual).',
+    },
+    type: {
+      type: 'JOURNAL_PUBLICATION_TYPE',
+      description: 'The type of journal publication (e.g., open-access, subscription-based).',
+    },
+    scopus_indexed: {
+      type: 'boolean',
+      description: 'Indicates whether the journal is indexed in Scopus.',
+    },
+  }}
+/>
+

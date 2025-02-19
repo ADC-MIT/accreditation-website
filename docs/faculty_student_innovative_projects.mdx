@@ -1,0 +1,33 @@
+---
+title: Faculty Student Innovative Projects Table
+description: Documentation for the `faculty_student_innovative_projects` table, which stores details about innovative projects involving faculty and students.
+---
+
+# Faculty Student Innovative Projects Table
+
+The `faculty_student_innovative_projects` table records information about innovative projects where faculty members collaborate with students.
+
+## Table Schema
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+<TypeTable
+  data={{
+    faculty_id: {
+      type: 'uuid',
+      description: 'References the `id` field in the `faculty` table.',
+    },
+    name_of_event: {
+      type: 'text',
+      description: 'The name of the event or project.',
+    },
+    link_of_website: {
+      type: 'text',
+      description: 'A URL linking to more details about the project or event.',
+    },
+  }}
+/>
+
+## Relationships
+
+- `faculty_id` references the `id` field in the `faculty` table.
