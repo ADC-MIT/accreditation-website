@@ -1,4 +1,4 @@
-import { DocsLayout, DocsLayoutProps } from 'fumadocs-ui/layouts/docs';
+import { DocsLayout, DocsLayoutProps } from 'fumadocs-ui/layouts/notebook';
 
 import { source } from '@/lib/source';
 
