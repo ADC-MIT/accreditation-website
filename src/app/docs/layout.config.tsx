@@ -1,6 +1,6 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 
-import { siteConfig } from '@/config/site';
+import Image from 'next/image';
 
 /**
  * Shared layout configurations
@@ -11,13 +11,21 @@ import { siteConfig } from '@/config/site';
  */
 export const baseOptions: BaseLayoutProps = {
   nav: {
-    title: siteConfig.name,
+    title: (
+      <div className="flex flex-row items-center">
+        <Image src="/favicon.png" alt="Institute Logo" height={24} width={24} />
+        <svg height="28" width="28" role="separator" viewBox="0 0 32 32">
+          <path
+            d="M22 5L9 28"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="stroke-current"
+          />
+        </svg>
+        <span className="text-lg font-semibold tracking-tight">
+          accreditation.
+        </span>
+      </div>
+    ),
   },
-  links: [
-    {
-      text: 'Documentation',
-      url: '/docs',
-      active: 'nested-url',
-    },
-  ],
 };
