@@ -1,0 +1,40 @@
+---
+title: Other Academic Institutes Run by Trust/Society
+description: This page stores information about other academic institutes managed by a trust or society.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies an academic institute.',
+    },
+    name: {
+      type: 'text',
+      description: 'The official name of the academic institute.',
+    },
+    year_of_establishment: {
+      type: 'int',
+      description: 'The year in which the institute was established.',
+    },
+    program_of_study: {
+      type: 'text[]',
+      description: 'List of academic programs offered by the institute.',
+    },
+    location: {
+      type: 'text',
+      description: 'The geographical location of the institute.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `id` field in this table is referenced by:
+  - `other_academic_institute_ids` in the `institutes` table.
+
+<Cards>
+  <Card title="Go to Institutes Table" href="./institutes" />
+</Cards>

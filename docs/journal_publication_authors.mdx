@@ -1,0 +1,38 @@
+---
+title: Journal Publication Authors
+description: The `journal_publication_authors` table establishes a relationship between journal publications and their respective authors. It ensures proper author attribution and ordering.
+---
+
+
+## Table Schema
+
+<TypeTable
+  type={{
+    publication_id: {
+      type: 'uuid',
+      description: 'Foreign key referencing the `journal_publications` table.',
+    },
+    author_id: {
+      type: 'uuid',
+      description: 'Foreign key referencing the `users` table.',
+    },
+    author_index: {
+      type: 'int',
+      description: 'The order of authorship for the publication.',
+    },
+  }}
+/>
+
+## Indexes
+
+- **Primary Key:** `(publication_id, author_id)`
+
+## Relationships
+
+- `publication_id` references `id` in the `journal_publications` table.
+- `author_id` references `id` in the `users` table.
+
+<Cards>
+  <Card title="Go to journal_publications table" href="./journal_publications" />
+  <Card title="Go to Users table" href="./users" /> 
+</Cards>

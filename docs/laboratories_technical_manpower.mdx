@@ -1,0 +1,35 @@
+---
+title: Laboratories Technical Manpower
+description: This page stores information about the technical manpower associated with laboratories.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies a technical manpower.',
+    },
+    name: {
+      type: 'text',
+      description: 'Name of the technical manpower.',
+    },
+    designation: {
+      type: 'text',
+      description: 'Designation of the technical manpower.',
+    },
+    qualification: {
+      type: 'text',
+      description: 'Qualification of the technical manpower.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `id` field in this table is referenced by the `technical_manpower_ids` field in the `laboratories` table.
+
+<Cards>
+  <Card title="Go to Laboratories Table" href="./laboratories" />
+</Cards>

@@ -1,0 +1,43 @@
+---
+title: GPA
+description: This page stores students' semester-wise GPA, including credits earned.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    student_id: {
+      type: 'uuid',
+      description: 'Primary key, references a student.',
+      relation: 'students.id',
+    },
+    semester: {
+      type: 'int',
+      description: 'The semester number.',
+    },
+    GPA: {
+      type: 'decimal(4,2)',
+      description: 'The Grade Point Average for the semester.',
+    },
+    credits: {
+      type: 'int',
+      description: 'The total credits earned in the semester.',
+    },
+  }}
+  indexes={[
+    {
+      fields: ['student_id', 'semester'],
+      unique: true,
+      description: 'Ensures a unique GPA entry per student per semester.',
+    },
+  ]}
+/>
+
+## Relationships
+
+- The `student_id` field references the `id` field in the `students` table.
+
+<Cards>
+  <Card title="Go to Students Table" href="./students" />
+</Cards>

@@ -1,0 +1,59 @@
+---
+title: Programs
+description: This page stores information about academic programs, including duration, accreditation status, and intake capacity.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies a program.',
+    },
+    program_code: {
+      type: 'int',
+      description: 'Unique code assigned to the program.',
+    },
+    duration_year: {
+      type: 'int',
+      description: 'Duration of the program in years.',
+    },
+    name: {
+      type: 'text',
+      description: 'Official name of the program.',
+    },
+    year_of_start: {
+      type: 'int',
+      description: 'The year in which the program started.',
+    },
+    sanctioned_intake: {
+      type: 'int',
+      description: 'Number of students approved for intake per year.',
+    },
+    aicte_approval_details: {
+      type: 'text',
+      description: 'Details of AICTE approval for the program.',
+    },
+    accreditation_status: {
+      type: 'PROGRAM_ACCREDITATION_STATUS',
+      description: 'Accreditation status of the program.',
+    },
+    number_of_times_accredited: {
+      type: 'int',
+      description: 'Total number of times the program has been accredited.',
+    },
+    institute_id: {
+      type: 'uuid',
+      description: 'References the `institutes` table, linking the program to an institute.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `id` field in this table is referenced by: `programs_offered` and `programs_considered` in the `institutes` table.
+
+<Cards>
+  <Card title="Go to Institutes Table" href="./institutes" />
+</Cards>

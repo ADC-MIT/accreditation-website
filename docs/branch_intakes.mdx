@@ -1,0 +1,37 @@
+---
+title: Branch Intakes
+description: This page stores information about the yearly intake capacity for different branches.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    branch_id: {
+      type: 'uuid',
+      description: 'References the `branches` table, linking the intake record to a specific branch.',
+    },
+    year: {
+      type: 'int',
+      description: 'The academic year for which the intake is recorded.',
+    },
+    allowed_batch_size: {
+      type: 'int',
+      description: 'The maximum number of students allowed to enroll in the branch for the given year.',
+    },
+  }}
+  indexes={{
+    '(branch_id, year)': {
+      type: 'primary',
+      description: 'Composite primary key ensuring each branch-year combination is unique.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `branch_id` field references the `id` field in the `branches` table.
+
+<Cards>
+  <Card title="Go to Branches Table" href="./branches" />
+</Cards>

@@ -1,0 +1,84 @@
+---
+title: Institutes
+description: The `institutes` table stores information about academic institutes, their affiliations, and leadership.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies an institute.',
+    },
+    institute_code: {
+      type: 'text',
+      description: 'Unique code assigned to the institute.',
+    },
+    name: {
+      type: 'text',
+      description: 'The official name of the institute.',
+    },
+    type: {
+      type: 'INSTITUTE_TYPE',
+      description: 'The type of institute (e.g., university, college, research institute).',
+    },
+    year_of_establishment: {
+      type: 'int',
+      description: 'The year in which the institute was established.',
+    },
+    ownership_status: {
+      type: 'INSTITUTE_OWNERSHIP_STATUS',
+      description: 'Specifies whether the institute is public, private, or government-owned.',
+    },
+    affiliating_university_name: {
+      type: 'text',
+      description: 'The name of the university to which the institute is affiliated.',
+    },
+    affiliating_university_address: {
+      type: 'text',
+      description: 'The address of the affiliating university.',
+    },
+    vision: {
+      type: 'text',
+      description: 'The vision statement of the institute.',
+    },
+    mission: {
+      type: 'text',
+      description: 'The mission statement of the institute.',
+    },
+    other_academic_institute_ids: {
+      type: 'uuid[]',
+      description: 'References other academic institutes run by the same trust or society.',
+    },
+    programs_offered: {
+      type: 'uuid[]',
+      description: 'References the academic programs offered by the institute.',
+    },
+    programs_considered: {
+      type: 'uuid[]',
+      description: 'References the academic programs considered for accreditation or evaluation.',
+    },
+    head_of_institute_id: {
+      type: 'uuid',
+      description: 'References the faculty member who serves as the head of the institute.',
+    },
+    nba_coordinator_id: {
+      type: 'uuid',
+      description: 'References the faculty member who serves as the NBA accreditation coordinator.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `other_academic_institute_ids` field references the `other_institutes_run_by_societies` table.
+- The `programs_offered` and `programs_considered` fields reference the `programs` table.
+- The `head_of_institute_id` and `nba_coordinator_id` fields reference the `faculty` table.
+
+<Cards>
+  <Card title="Go to Programs Table" href="./programs" />
+  <Card title="Go to Faculty Table" href="./faculty" />
+  <Card title="Go to Other Academic Institutes Table" href="./other_institutes_run_by_societies" />
+</Cards>
+

@@ -1,0 +1,35 @@
+---
+title: Benefit Programs
+description: This page stores information about benefit programs availed by students.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies a benefit program.',
+    },
+    student_id: {
+      type: 'uuid',
+      description: 'Foreign key referencing the `students` table.',
+    },
+    year: {
+      type: 'int',
+      description: 'Year in which the benefit program was availed.',
+    },
+    type: {
+      type: 'BENEFIT_SCHEME_TYPE',
+      description: 'Type of benefit scheme under which the student received support.',
+    },
+  }}
+/>
+
+## Relationships
+
+- `student_id` references the `id` field in the `students` table.
+
+<Cards>
+  <Card title="Go to Students Table" href="./students" />
+</Cards>

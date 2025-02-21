@@ -1,0 +1,34 @@
+---
+title: Institute Ownership Status Enum
+description: This page defines the different ownership statuses of institutes based on their funding and governance structure.
+---
+
+<TypeTable
+  type={{
+    CENTRAL_GOVERNMENT: {
+      id: 'CENTRAL_GOVERNMENT',
+      type: 'text',
+      description: 'An institute funded and managed by the central government.',
+    },
+    STATE_GOVERNMENT: {
+      id: 'STATE_GOVERNMENT',
+      type: 'text',
+      description: 'An institute funded and managed by a state government.',
+    },
+    GRANT_IN_AID: {
+      id: 'GRANT_IN_AID',
+      type: 'text',
+      description: 'An institute that receives financial support from the government but operates autonomously.',
+    },
+    SELF_FINANCING_TRUST: {
+      id: 'SELF_FINANCING_TRUST',
+      type: 'text',
+      description: 'An institute run by a private trust or organization without government funding.',
+    },
+    OTHER: {
+      id: 'OTHER',
+      type: 'text',
+      description: 'Any other type of ownership structure not listed above.',
+    },
+  }}
+/>

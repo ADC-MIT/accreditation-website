@@ -1,0 +1,59 @@
+---
+title: Collaborative Activities
+description: This page stores information about collaborative activities involving users and agencies, including financial support sources and duration.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies a collaborative activity.',
+    },
+    title: {
+      type: 'text',
+      description: 'Title of the collaborative activity.',
+    },
+    type: {
+      type: 'COLLABORATIVE_ACTIVITY_TYPE',
+      description: 'Type of the collaborative activity.',
+    },
+    agency_id: {
+      type: 'uuid',
+      description: 'Foreign key referencing the agency involved in the activity.',
+      ref: '> agencies.id',
+    },
+    user_id: {
+      type: 'uuid',
+      description: 'Foreign key referencing the user involved in the activity.',
+      ref: '> users.id',
+    },
+    source_of_financial_support: {
+      type: 'text',
+      description: 'Details about the financial support source for the activity.',
+    },
+    year: {
+      type: 'int',
+      description: 'Year in which the activity took place.',
+    },
+    duration: {
+      type: 'int',
+      description: 'Duration of the activity in days.',
+    },
+    link_to_relevant_documents: {
+      type: 'text[]',
+      description: 'Links to relevant documents related to the activity.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `agency_id` field references the `id` field in the `agencies` table.
+- The `user_id` field references the `id` field in the `users` table.
+
+<Cards>
+  <Card title="Go to Agencies Table" href="./agencies" />
+  <Card title="Go to Users Table" href="./users" />
+</Cards>

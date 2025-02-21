@@ -1,0 +1,41 @@
+---
+title: Book Publications
+description: The `book_publications` table contains records of books published, including metadata such as year, semester, title, ISBN, and type.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key for the book publication record.',
+    },
+    year: {
+      type: 'int',
+      description: 'Year of book publication.',
+    },
+    semester: {
+      type: 'ACADEMIC_SEMESTER',
+      description: 'Academic semester in which the book was published.',
+    },
+    title: {
+      type: 'text',
+      description: 'Title of the book.',
+    },
+    isbn: {
+      type: 'int',
+      description: 'ISBN-13 of the book.',
+    },
+    type: {
+      type: 'BOOK_PUBLICATION_TYPE',
+      description:
+        'Type of book publication (e.g., textbook, reference book, etc.).',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `semester` field is an enum of type `ACADEMIC_SEMESTER`.
+- The `type` field is an enum of type `BOOK_PUBLICATION_TYPE`.

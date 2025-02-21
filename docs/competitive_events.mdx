@@ -1,0 +1,47 @@
+---
+title: Competitive Events
+description: This page stores information about competitive events, including their classification, type, participants, positions, and awards.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, references an event.',
+      relation: 'events.id',
+    },
+    classification: {
+      type: 'EVENT_CLASSIFICATION',
+      description: 'The classification of the competitive event.',
+    },
+    type: {
+      type: 'COMPETITIVE_EVENT_TYPE',
+      description: 'The type of competitive event.',
+    },
+    participant_id: {
+      type: 'uuid',
+      description: 'Reference to the participant in the event.',
+      relation: 'students.id',
+    },
+    position: {
+      type: 'int',
+      description: 'The position secured by the participant in the event.',
+    },
+    award: {
+      type: 'text',
+      description: 'Details about the award received.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `id` field references the `id` field in the `events` table.
+- The `participant_id` field references the `id` field in the `students` table.
+
+<Cards>
+  <Card title="Go to Events Table" href="./events" />
+  <Card title="Go to Students Table" href="./students" />
+</Cards>

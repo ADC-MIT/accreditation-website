@@ -1,0 +1,49 @@
+---
+title: Awards
+description: This page stores information about awards received by users, including the awarding agency and award type.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies an award.',
+    },
+    name: {
+      type: 'text',
+      description: 'Name of the award.',
+    },
+    type: {
+      type: 'AWARD_TYPE',
+      description: 'Type of the award.',
+    },
+    awarding_agency: {
+      type: 'text',
+      description: 'Name of the agency that awarded the honor (if applicable).',
+      nullable: true,
+    },
+    user_type: {
+      type: 'AWARD_USER_TYPE',
+      description: 'Specifies whether the recipient is a student, faculty, or other user.',
+    },
+    user_id: {
+      type: 'uuid',
+      description: 'Foreign key referencing the user who received the award.',
+      ref: '> users.id',
+    },
+    year: {
+      type: 'int',
+      description: 'Year in which the award was received.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `user_id` field references the `id` field in the `users` table.
+
+<Cards>
+  <Card title="Go to Users Table" href="./users" />
+</Cards>

@@ -1,0 +1,38 @@
+---
+title: Professional Communities
+description: The `professional_communities` table records faculty members' involvement in various professional societies.
+---
+
+
+## Table Schema
+
+<TypeTable
+  type={{
+    faculty_id: {
+      type: 'uuid',
+      description:
+        'References the `faculty.id` field, linking a faculty member to their professional community.',
+    },
+    name_of_society: {
+      type: 'text',
+      description:
+        'The name of the professional society the faculty member is associated with.',
+    },
+    position: {
+      type: 'text',
+      description: 'The position held by the faculty member in the society.',
+    },
+  }}
+/>
+
+## Indexes
+
+- **Primary Key**: `(faculty_id, name_of_society)`
+
+## Relationships
+
+- `faculty_id` references the **faculty** table.
+
+<Cards>
+  <Card title="Go to Faculty Table" href="./faculty" />
+</Cards>

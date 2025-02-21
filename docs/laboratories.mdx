@@ -1,0 +1,48 @@
+---
+title: Laboratories
+description: This page stores information about laboratories available in the institution.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, referencing facilities.',
+    },
+    batch_size: {
+      type: 'int',
+      description: 'Maximum number of students that can be accommodated in a batch.',
+    },
+    name_of_equipment: {
+      type: 'text[]',
+      description: 'List of equipment available in the laboratory.',
+      nullable: true,
+    },
+    safety_measures: {
+      type: 'text[]',
+      description: 'List of safety measures implemented in the laboratory.',
+      nullable: true,
+    },
+    weekly_utilization: {
+      type: 'int',
+      description: 'Number of hours per week the laboratory is utilized.',
+    },
+    technical_manpower_ids: {
+      type: 'uuid[]',
+      description: 'List of technical manpower associated with this laboratory.',
+      ref: '> laboratories_technical_manpower.id',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `id` field in this table references the `facilities` table.
+- The `technical_manpower_ids` field references the `laboratories_technical_manpower` table.
+
+<Cards>
+  <Card title="Go to Facilities Table" href="./facilities" />
+  <Card title="Go to Laboratories Technical Manpower Table" href="./laboratories_manpower" />
+</Cards>

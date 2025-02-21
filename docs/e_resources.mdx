@@ -1,0 +1,43 @@
+---
+title: E-Resources
+description: This page stores information about e-resources developed by faculty members.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    faculty_id: {
+      type: 'uuid',
+      description: 'Reference to the faculty who developed the e-resource.',
+    },
+    name: {
+      type: 'text',
+      description: 'Name of the e-resource.',
+    },
+    development_platform: {
+      type: 'text',
+      description: 'Platform used to develop the e-resource.',
+    },
+    date_of_launch: {
+      type: 'date',
+      description: 'Launch date of the e-resource.',
+    },
+    link_to_relevant_document: {
+      type: 'text',
+      description: 'Link to relevant documentation or resource.',
+    },
+    institute: {
+      type: 'text',
+      description: 'Institute where the faculty is affiliated.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `faculty_id` field references the `id` field in the `faculty` table.
+
+<Cards>
+  <Card title="Go to Faculty Table" href="./faculty" />
+</Cards>

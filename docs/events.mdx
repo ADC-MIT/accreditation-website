@@ -1,0 +1,72 @@
+---
+title: Events
+description: This page stores information about events, including their schedule, venue, organizer, objectives, and related SDG goals.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies an event.',
+    },
+    name: {
+      type: 'text',
+      description: 'The name of the event.',
+    },
+    date: {
+      type: 'timestamp',
+      description: 'The date of the event.',
+      nullable: true,
+    },
+    start_time: {
+      type: 'timestamp',
+      description: 'The start time of the event.',
+      nullable: true,
+    },
+    end_time: {
+      type: 'timestamp',
+      description: 'The end time of the event.',
+      nullable: true,
+    },
+    venue: {
+      type: 'text',
+      description: 'The venue where the event takes place.',
+    },
+    organizer_id: {
+      type: 'uuid',
+      description: 'Reference to the organizer of the event.',
+      relation: 'organizers.id',
+    },
+    level: {
+      type: 'EVENT_LEVEL',
+      description: 'The level of the event (e.g., local, national, international).',
+      nullable: true,
+    },
+    objective: {
+      type: 'EVENT_OBJECTIVE',
+      description: 'The main objective or purpose of the event.',
+      nullable: true,
+    },
+    description: {
+      type: 'text',
+      description: 'A detailed description of the event.',
+    },
+    sdg_goals: {
+      type: 'uuid[]',
+      description: 'List of related SDG goals for the event.',
+      relation: 'sdg_goals.id',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `organizer_id` field references the `id` field in the `organizers` table.
+- The `sdg_goals` field references the `id` field in the `sdg_goals` table.
+
+<Cards>
+  <Card title="Go to Organizers Table" href="./organizers" />
+  <Card title="Go to SDG Goals Table" href="./sdg_goals" />
+</Cards>

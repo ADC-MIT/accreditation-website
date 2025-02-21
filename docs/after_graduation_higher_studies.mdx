@@ -1,0 +1,38 @@
+---
+title: After Graduation Higher Studies
+description: This page stores information about students who pursue higher studies after graduation, including the institute and program details.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    after_graduation_id: {
+      type: 'uuid',
+      description: 'References the after graduation record.',
+      relation: 'after_graduation.id',
+      primary: true,
+    },
+    institute_name: {
+      type: 'text',
+      description: 'Name of the institute where the student is pursuing higher studies.',
+    },
+    program_name: {
+      type: 'text',
+      description: 'Name of the program the student is enrolled in.',
+    },
+    with_exam: {
+      type: 'bool',
+      description: 'Indicates whether admission was through an entrance exam.',
+      default: true,
+    },
+  }}
+/>
+
+## Relationships
+
+- The `after_graduation_id` field references the `id` field in the `after_graduation` table.
+
+<Cards>
+  <Card title="Go to After Graduation Table" href="./after_graduation" />
+</Cards>

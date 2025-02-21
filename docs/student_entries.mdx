@@ -1,0 +1,24 @@
+---
+title: Student Entry Types Enum
+description: This page defines the different types of student entries.
+---
+
+<TypeTable
+  type={{
+    REGULAR: {
+      id: 'REGULAR',
+      type: 'text',
+      description: 'Students who enter through the regular admission process.',
+    },
+    LATERAL_ENTRY: {
+      id: 'LATERAL_ENTRY',
+      type: 'text',
+      description: "Students who join directly into later years of the program. The year of exit is calculated by adding the program's duration to the program intake year.",
+    },
+    OTHER: {
+      id: 'OTHER',
+      type: 'text',
+      description: 'Students who enter through other special cases or pathways.',
+    },
+  }}
+/>

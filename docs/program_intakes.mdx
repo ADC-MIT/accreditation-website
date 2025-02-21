@@ -1,0 +1,36 @@
+---
+title: Program Intakes
+description: This page tracks the intake capacity for academic programs across different years.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    program_id: {
+      type: 'uuid',
+      description: 'References the `programs` table, linking the intake record to a specific program.',
+    },
+    year: {
+      type: 'int',
+      description: 'The academic year for which the intake is recorded.',
+    },
+    intake: {
+      type: 'int',
+      description: 'Number of students admitted to the program in the specified year.',
+    },
+  }}
+  indexes={{
+    '(program_id, year)': {
+      description: 'Primary key ensuring unique intake records for each program per year.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `program_id` field references the `id` field in the `programs` table.
+
+<Cards>
+  <Card title="Go to Programs Table" href="./programs" />
+</Cards>

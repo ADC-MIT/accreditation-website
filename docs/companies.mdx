@@ -1,0 +1,27 @@
+---
+title: Companies
+description: This page stores information about companies, including their name and contact details.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies a company.',
+    },
+    name: {
+      type: 'text',
+      description: 'Name of the company.',
+    },
+    contact_no: {
+      type: 'text',
+      description: 'Contact number of the company.',
+    },
+    contact_email: {
+      type: 'text',
+      description: 'Contact email of the company.',
+    },
+  }}
+/>

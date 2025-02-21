@@ -1,0 +1,33 @@
+---
+title: Sponsorships
+description: The `sponsorships` table records details of sponsorships received, including the agency providing the sponsorship, the year of funding, the amount in INR, and the project title.
+---
+
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description:
+        'Primary key of the table, uniquely identifies a sponsorship record.',
+    },
+    agency_name: {
+      type: 'text',
+      description: 'The name of the funding agency providing the sponsorship.',
+    },
+    year: {
+      type: 'int',
+      description: 'The year in which the sponsorship was received.',
+    },
+    amount_inr: {
+      type: 'int',
+      description: 'The amount of sponsorship in Indian Rupees (INR).',
+    },
+    project_title: {
+      type: 'text',
+      description: 'The title of the project funded by the sponsorship.',
+    },
+  }}
+/>
