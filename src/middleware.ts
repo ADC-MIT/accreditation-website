@@ -9,7 +9,11 @@ export async function middleware(request: NextRequest) {
   // List of paths that don't require authentication
   const publicPaths = ['/login', '/docs'];
 
-  if (publicPaths.includes(request.nextUrl.pathname)) {
+  if (
+    publicPaths.some((publicPath) =>
+      request.nextUrl.pathname.startsWith(publicPath)
+    )
+  ) {
     return NextResponse.next();
   }
 
