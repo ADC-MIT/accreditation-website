@@ -1,4 +1,5 @@
 import { MDXContent } from '@content-collections/mdx/react';
+import { TypeTable } from 'fumadocs-ui/components/type-table';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import {
   DocsBody,
@@ -26,7 +27,7 @@ export default async function Page(props: {
       <DocsBody>
         <MDXContent
           code={page.data.body}
-          components={{ ...defaultMdxComponents }}
+          components={{ ...defaultMdxComponents, TypeTable }}
         />
       </DocsBody>
     </DocsPage>
