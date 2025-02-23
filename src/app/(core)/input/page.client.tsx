@@ -28,9 +28,9 @@ function navigateToInputTable(
         setTimeout(resolve, 500);
       }),
     {
-      loading: 'Loading form details...',
-      success: 'Form details loaded',
-      error: 'Failed to load form details',
+      loading: 'Loading table data...',
+      success: 'Table data loaded',
+      error: 'Failed to load table data',
     }
   );
 }

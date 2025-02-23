@@ -1,6 +1,6 @@
 'use server';
 
-import { AccreditationDetails } from '@/types';
+import { AccreditationDetails, TableDetails } from '@/types';
 
 import { redirect } from 'next/navigation';
 
@@ -35,7 +35,11 @@ export async function getNAACFields({
   }
 }
 
-export async function getNBAFields({ slug }: { slug?: string }): Promise<AccreditationDetails> {
+export async function getNBAFields({
+  slug,
+}: {
+  slug?: string;
+}): Promise<AccreditationDetails> {
   try {
     const token = await getToken();
     const response = await fetch(
@@ -58,7 +62,11 @@ export async function getNBAFields({ slug }: { slug?: string }): Promise<Accredi
   }
 }
 
-export async function getNIRFFields({ slug }: { slug?: string }): Promise<AccreditationDetails> {
+export async function getNIRFFields({
+  slug,
+}: {
+  slug?: string;
+}): Promise<AccreditationDetails> {
   try {
     const token = await getToken();
     const response = await fetch(
@@ -71,6 +79,59 @@ export async function getNIRFFields({ slug }: { slug?: string }): Promise<Accred
     );
 
     const data = handleApiResponse(response);
+    return data;
+  } catch (error) {
+    if (error instanceof AuthenticationError && error.expired) {
+      redirect('/?session_expired=true');
+    }
+    console.error('Error fetching tickets:', error);
+    throw error;
+  }
+}
+
+export async function getTableFields({
+  slug,
+}: {
+  slug: string;
+}): Promise<TableDetails> {
+  try {
+    const token = await getToken();
+    const response = await fetch(`${runtimeEnv.BACKEND_URL}/tables/${slug}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await handleApiResponse(response);
+    return data;
+  } catch (error) {
+    if (error instanceof AuthenticationError && error.expired) {
+      redirect('/?session_expired=true');
+    }
+    console.error('Error fetching tickets:', error);
+    throw error;
+  }
+}
+
+export async function getExportData({
+  accreditation,
+  slug,
+}: {
+  accreditation: string;
+  slug: string;
+}): Promise<TableDetails> {
+  try {
+    const token = await getToken();
+    const response = await fetch(
+      `${runtimeEnv.BACKEND_URL}/fetch/${accreditation}/${slug}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await handleApiResponse(response);
     return data;
   } catch (error) {
     if (error instanceof AuthenticationError && error.expired) {

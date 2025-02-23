@@ -181,7 +181,7 @@ export default function ExportRootPageClient({
                 key={key}
                 title={iconTitle}
                 description={iconDesc}
-                href={key}
+                href={`/export/tables/naac/${key}${field.args === '(year: int)' ? '?year=2025' : ''}`}
               />
             );
           })}
@@ -200,7 +200,7 @@ export default function ExportRootPageClient({
                 key={key}
                 title={iconTitle}
                 description={iconDesc}
-                href={key}
+                href={`/export/tables/nba/${key}${field.args === '(year: int)' ? '?year=2025' : ''}`}
               />
             );
           })}
@@ -219,7 +219,7 @@ export default function ExportRootPageClient({
                 key={key}
                 title={iconTitle}
                 description={iconDesc}
-                href={key}
+                href={`/export/tables/nirf/${key}${field.args === '(year: int)' ? '?year=2025' : ''}`}
               />
             );
           })}
