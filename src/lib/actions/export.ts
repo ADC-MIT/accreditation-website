@@ -1,14 +1,18 @@
 'use server';
 
+import { AccreditationDetails } from '@/types';
+
 import { redirect } from 'next/navigation';
 
 import { runtimeEnv } from '@/config/env';
 
 import { AuthenticationError, getToken, handleApiResponse } from '@/lib/api';
 
-export async function getNAACFields({ slug }: { slug?: string }): Promise<{
-  [key: string]: string;
-}> {
+export async function getNAACFields({
+  slug,
+}: {
+  slug?: string;
+}): Promise<AccreditationDetails> {
   try {
     const token = await getToken();
     const response = await fetch(

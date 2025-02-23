@@ -1,8 +1,8 @@
 'use server';
 
-import { redirect } from 'next/navigation';
+import { TableDetails } from '@/types';
 
-import { TableDetails } from '@/types/tables';
+import { redirect } from 'next/navigation';
 
 import { runtimeEnv } from '@/config/env';
 

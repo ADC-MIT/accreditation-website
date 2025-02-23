@@ -1,10 +1,9 @@
 'use client';
 
+import { FormDetails, FormField } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-
-import { FormDetails, FormField } from '@/types/input';
 
 import { DateTimePicker, TimePicker } from '@/components/ui/datetime-picker';
 import {

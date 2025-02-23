@@ -1,13 +1,12 @@
 'use client';
 
+import { FormList } from '@/types';
 import { Globe, Search } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { useEffect, useRef, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
-
-import { FormList } from '@/types/input';
 
 import {
   Card,
