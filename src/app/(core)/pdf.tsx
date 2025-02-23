@@ -1,31 +1,33 @@
-import React from "react";
-import { Button } from "@/components/ui/button";
-import { FileText } from "lucide-react";
 import {
   Document,
+  Image,
   Page,
+  StyleSheet,
   Text,
   View,
-  StyleSheet,
   pdf,
-  Image,
-} from "@react-pdf/renderer";
-import logoImage from "accreditation-website/public/logo.png";
+} from '@react-pdf/renderer';
+import logoImage from 'accreditation-website/public/logo.png';
+import { FileText } from 'lucide-react';
+
+import React from 'react';
+
+import { Button } from '@/components/ui/button';
 
 const styles = StyleSheet.create({
   page: {
     padding: 30,
     borderWidth: 1,
-    borderColor: "#000",
+    borderColor: '#000',
   },
   headerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 20,
   },
   logoContainer: {
-    position: "absolute",
+    position: 'absolute',
     top: 10,
     right: 10,
   },
@@ -35,9 +37,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 10,
-    textDecoration: "underline",
+    textDecoration: 'underline',
   },
   description: {
     fontSize: 12,
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     padding: 10,
     borderWidth: 1,
-    borderColor: "#000",
+    borderColor: '#000',
     borderRadius: 5,
   },
   fieldContainer: {
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   value: {
     fontSize: 12,
@@ -66,7 +68,7 @@ const PdfDocument = ({ title, description, tableData }: any) => (
   <Document>
     <Page style={styles.page}>
       {/* Full Page Border */}
-      <View style={{ borderWidth: 1, borderColor: "#000", padding: 20 }}>
+      <View style={{ borderWidth: 1, borderColor: '#000', padding: 20 }}>
         {/* Logo at Top Right */}
         <View style={styles.logoContainer}>
           <Image style={styles.logo} src="/logo.png" />
@@ -100,8 +102,38 @@ const PdfDocument = ({ title, description, tableData }: any) => (
   </Document>
 );
 
-
-
+// --- EXAMPLE USAGE ---
+//
+// <ExportButton
+//           title="Institution Name"
+//           description="This is a sample description from the backend."
+//           tableData={[
+//             {
+//               sectionTitle: '5.1.1 Student Support',
+//               data: [
+//                 {
+//                   Year: '2023',
+//                   'Name of Scheme': 'National Scholarship',
+//                   'Students (Govt)': 150,
+//                   'Amount (Govt)': '750000 INR',
+//                   'Students (Institutional)': 50,
+//                   'Amount (Institutional)': '250000 INR',
+//                 },
+//               ],
+//             },
+//             {
+//               sectionTitle: '6.2.3 E-Governance',
+//               data: [
+//                 {
+//                   Area: 'Administration',
+//                   Year: '2023',
+//                   Link: 'https://example.com/administration',
+//                 },
+//               ],
+//             },
+//           ]}
+//         />
+//
 
 const ExportButton = ({
   title,
@@ -114,13 +146,17 @@ const ExportButton = ({
 }) => {
   const handleExport = async () => {
     const blob = await pdf(
-      <PdfDocument title={title} description={description} tableData={tableData} />
+      <PdfDocument
+        title={title}
+        description={description}
+        tableData={tableData}
+      />
     ).toBlob();
     const url = URL.createObjectURL(blob);
 
-    const link = document.createElement("a");
+    const link = document.createElement('a');
     link.href = url;
-    link.download = "report.pdf";
+    link.download = 'report.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
