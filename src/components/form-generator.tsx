@@ -104,7 +104,12 @@ export function FormGenerator({
           case 'datetime':
             return <DateTimePicker granularity="minute" {...rhfField} />;
           case 'multi-input':
-            return <MultiInput {...rhfField} />;
+            return (
+              <MultiInput
+                values={rhfField.value || []}
+                onChange={(val) => rhfField.onChange(val)}
+              />
+            );
           case 'number':
             return <Input type="number" {...rhfField} />;
           case 'string':
