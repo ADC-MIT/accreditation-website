@@ -1,5 +1,6 @@
 'use client';
 
+import { AccreditationDetails } from '@/types';
 import {
   ChevronRight,
   ExternalLink,
@@ -104,9 +105,9 @@ export default function ExportRootPageClient({
   nbaFields,
   nirfFields,
 }: {
-  naacFields: { [key: string]: string };
-  nbaFields: { [key: string]: string };
-  nirfFields: { [key: string]: string };
+  naacFields: AccreditationDetails;
+  nbaFields: AccreditationDetails;
+  nirfFields: AccreditationDetails;
 }) {
   return (
     <div className="flex flex-col space-y-8">
