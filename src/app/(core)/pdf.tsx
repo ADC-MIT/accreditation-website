@@ -10,7 +10,7 @@ import {
   pdf,
   Image,
 } from "@react-pdf/renderer";
-
+import logoImage from "accreditation-website/public/logo.png";
 
 const styles = StyleSheet.create({
   page: {
@@ -24,8 +24,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
   },
+  logoContainer: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+  },
   logo: {
-    width: 50,
+    width: 150,
     height: 50,
   },
   title: {
@@ -57,39 +62,45 @@ const styles = StyleSheet.create({
   },
 });
 
-
 const PdfDocument = ({ title, description, tableData }: any) => (
   <Document>
     <Page style={styles.page}>
-      {/* Header with Logo */}
-      <View style={styles.headerContainer}>
-        <Text style={styles.title}>{title}</Text>
-        <Image style={styles.logo} src="https://via.placeholder.com/50" />
-      </View>
-
-      
-      <Text style={styles.description}>{description}</Text>
-
-      
-      {tableData.map((section: any, index: number) => (
-        <View key={index} style={styles.section}>
-          <Text style={styles.title}>{section.sectionTitle}</Text>
-          {section.data.map((row: any, rowIndex: number) => (
-            <View key={rowIndex}>
-              {Object.entries(row).map(([key, value], i) => (
-                <View key={i} style={styles.fieldContainer}>
-                  <Text style={styles.label}>
-                    {key}: <Text style={styles.value}>{String(value)}</Text>
-                  </Text>
-                </View>
-              ))}
-            </View>
-          ))}
+      {/* Full Page Border */}
+      <View style={{ borderWidth: 1, borderColor: "#000", padding: 20 }}>
+        {/* Logo at Top Right */}
+        <View style={styles.logoContainer}>
+          <Image style={styles.logo} src="/logo.png" />
         </View>
-      ))}
+
+        {/* Title */}
+        <Text style={styles.title}>{title}</Text>
+
+        {/* Description */}
+        <Text style={styles.description}>{description}</Text>
+
+        {/* Table Data */}
+        {tableData.map((section: any, index: number) => (
+          <View key={index} style={styles.section}>
+            <Text style={styles.title}>{section.sectionTitle}</Text>
+            {section.data.map((row: any, rowIndex: number) => (
+              <View key={rowIndex}>
+                {Object.entries(row).map(([key, value], i) => (
+                  <View key={i} style={styles.fieldContainer}>
+                    <Text style={styles.label}>
+                      {key}: <Text style={styles.value}>{String(value)}</Text>
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            ))}
+          </View>
+        ))}
+      </View>
     </Page>
   </Document>
 );
+
+
 
 
 const ExportButton = ({
@@ -102,7 +113,9 @@ const ExportButton = ({
   tableData: any[];
 }) => {
   const handleExport = async () => {
-    const blob = await pdf(<PdfDocument title={title} description={description} tableData={tableData} />).toBlob();
+    const blob = await pdf(
+      <PdfDocument title={title} description={description} tableData={tableData} />
+    ).toBlob();
     const url = URL.createObjectURL(blob);
 
     const link = document.createElement("a");
