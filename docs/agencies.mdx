@@ -1,0 +1,27 @@
+---
+title: Agencies
+description: This page stores information about agencies, including their contact details.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies an agency.',
+    },
+    name: {
+      type: 'text',
+      description: 'Name of the agency.',
+    },
+    contact_no: {
+      type: 'text',
+      description: 'Contact number of the agency.',
+    },
+    contact_email: {
+      type: 'text',
+      description: 'Contact email address of the agency.',
+    },
+  }}
+/>

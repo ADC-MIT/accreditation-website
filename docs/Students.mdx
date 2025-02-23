@@ -1,0 +1,89 @@
+---
+title: Students
+description: This page documents the `students` table in the database schema. The `students` table stores information about students, including their admission details, origin, and academic records.
+---
+
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description:
+        'Primary key of the table, uniquely identifies a student. References users.id.',
+    },
+    admission_no: {
+      type: 'varchar(50)',
+      description: 'Unique admission number assigned to the student.',
+      unique: true,
+    },
+    registration_no: {
+      type: 'varchar(50)',
+      description: 'Unique registration number assigned to the student.',
+      unique: true,
+    },
+    origin: {
+      type: 'STUDENT_ORIGIN',
+      description: 'The origin classification of the student.',
+    },
+    gender: {
+      type: 'STUDENT_GENDER',
+      description: 'The gender of the student.',
+    },
+    branch_id: {
+      type: 'uuid',
+      description: 'References branches.id to determine the student’s branch.',
+    },
+    batch_year: {
+      type: 'int',
+      description: 'The batch year of the student.',
+    },
+    year_of_join: {
+      type: 'int',
+      description: 'The year in which the student joined.',
+    },
+    type_of_join: {
+      type: 'STUDENT_ENTRIES',
+      description: 'The type of entry through which the student joined.',
+    },
+    year_of_exit: {
+      type: 'int',
+      description: 'The year in which the student exited (if applicable).',
+      nullable: true,
+    },
+    type_of_exit: {
+      type: 'STUDENT_EXITS',
+      description: 'The type of exit through which the student left.',
+      nullable: true,
+    },
+    social_disadvantage: {
+      type: 'SOCIAL_DISADVANTAGE',
+      description:
+        'Indicates if the student belongs to a socially disadvantaged group.',
+      nullable: true,
+    },
+    economic_disadvantage: {
+      type: 'boolean',
+      description: 'Indicates if the student is economically disadvantaged.',
+      default: false,
+    },
+    physically_challenged: {
+      type: 'boolean',
+      description: 'Indicates if the student is physically challenged.',
+      default: false,
+    },
+  }}
+/>
+
+## Relationships
+
+- The `id` field references `users.id`.
+- The `branch_id` field references `branches.id`.
+- The combination of `(branch_id, batch_year)` references `branch_intakes.(branch_id, year)`.
+
+<Cards>
+  <Card title="Go to Users Table" href="./users" />
+  <Card title="Go to Branches Table" href="./branches" />
+  <Card title="Go to Branch Intakes Table" href="./branch_intakes" />
+</Cards>

@@ -1,0 +1,32 @@
+---
+title: IPR Earnings
+description: The `ipr_earnings` table records financial details related to earnings from Intellectual Property Rights (IPR), including the associated IPR ID, financial year, and amount in INR.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    ipr_id: {
+      type: 'uuid',
+      description:
+        'Primary key referencing the IPR for which earnings are recorded.',
+    },
+    financial_year: {
+      type: 'int',
+      description: 'The financial year in which the earnings were recorded.',
+    },
+    amount_inr: {
+      type: 'int',
+      description: 'The amount earned in INR from the IPR.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `ipr_id` field references the `id` field in the `ipr` table.
+
+<Cards>
+  <Card title="Go to IPR Table" href="./ipr" />
+</Cards>

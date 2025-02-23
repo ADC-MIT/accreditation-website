@@ -1,0 +1,33 @@
+---
+title: Book Publication Authors
+description: The `book_publication_authors` table maps authors to book publications. It establishes a many-to-many relationship between users and book publications, specifying the order of authorship.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    publication_id: {
+      type: 'uuid',
+      description: 'Foreign key referencing the `book_publications` table.',
+    },
+    author_id: {
+      type: 'uuid',
+      description: 'Foreign key referencing the `users` table.',
+    },
+    author_index: {
+      type: 'int',
+      description:
+        'Position of the author in the list of contributors for the book.',
+    },
+  }}
+/>
+
+## Indexes
+
+- **Primary Key**: `(publication_id, author_id)`
+
+## Relationships
+
+- The `publication_id` field references the `book_publications` table.
+- The `author_id` field references the `users` table.

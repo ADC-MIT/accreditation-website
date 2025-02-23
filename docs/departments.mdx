@@ -1,0 +1,31 @@
+---
+title: Departments
+description: This page defines the structure of the `departments` table, which stores information about various academic departments within an institute.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies a department.',
+    },
+    name: {
+      type: 'text',
+      description: 'The name of the department.',
+    },
+    program_id: {
+      type: 'uuid',
+      description: 'References the `programs` table, linking the department to a specific academic program.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `program_id` field references the `id` field in the `programs` table.
+
+<Cards>
+  <Card title="Go to Programs Table" href="./programs" />
+</Cards>

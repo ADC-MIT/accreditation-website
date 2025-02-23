@@ -1,0 +1,42 @@
+---
+title: Users
+description: This page documents the `users` table in the database schema. The `users` table stores information about system users, such as their names and email addresses.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies a user.',
+    },
+    first_name: {
+      type: 'varchar(100)',
+      description: 'The first name of the user.',
+    },
+    middle_name: {
+      type: 'varchar(100)',
+      description: 'The middle name of the user (if any).',
+    },
+    last_name: {
+      type: 'varchar(100)',
+      description: 'The last name of the user.',
+    },
+    email: {
+      type: 'varchar(255)',
+      description: 'The email address of the user.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `id` field in this table is referenced by:
+  - `faculty_id` in the `faculty_courses` table.
+  - `awardee_id` in the `ipr` table.
+
+<Cards>
+  <Card title="Go to Faculty Courses Table" href="./faculty_courses" />
+  <Card title="Go to IPR Table" href="./ipr" />
+</Cards>

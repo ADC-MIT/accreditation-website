@@ -1,8 +1,8 @@
 'use server';
 
-import { redirect } from 'next/navigation';
+import { FormDetails, FormList } from '@/types';
 
-import { FormDetails, FormList } from '@/types/input';
+import { redirect } from 'next/navigation';
 
 import { runtimeEnv } from '@/config/env';
 

@@ -1,0 +1,32 @@
+---
+title: Adjunct Faculty
+description: This page documents the `adjunct_faculty` table, which stores information about adjunct faculty members and their workload.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    faculty_id: {
+      type: 'uuid',
+      description: 'Foreign key referencing the `faculty.id` field.',
+    },
+    hours_handled: {
+      type: 'int',
+      description:
+        'Number of hours allotted to visiting faculty (Ad-Hoc faculty).',
+    },
+    subjects: {
+      type: 'text[]',
+      description: 'Array of subjects handled by the adjunct faculty member.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `faculty_id` field references the `id` column in the `faculty` table.
+
+<Cards>
+  <Card title="Go to Faculty Table" href="./faculty" />
+</Cards>

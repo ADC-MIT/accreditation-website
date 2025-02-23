@@ -1,0 +1,23 @@
+---
+title: SDG Goals
+description: This page stores information about Sustainable Development Goals (SDGs), including their number and description.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies an SDG goal.',
+    },
+    number: {
+      type: 'int',
+      description: 'The official number assigned to the SDG goal.',
+    },
+    goal: {
+      type: 'text',
+      description: 'The description of the SDG goal.',
+    },
+  }}
+/>

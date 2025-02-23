@@ -1,0 +1,29 @@
+---
+title: After Graduation Entrepreneurship
+description: This page stores information about students who started their own businesses after graduation, including the company name.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    after_graduation_id: {
+      type: 'uuid',
+      description: 'References the after graduation record.',
+      relation: 'after_graduation.id',
+      primary: true,
+    },
+    company_name: {
+      type: 'text',
+      description: 'Name of the company started by the student.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `after_graduation_id` field references the `id` field in the `after_graduation` table.
+
+<Cards>
+  <Card title="Go to After Graduation Table" href="./after_graduation" />
+</Cards>

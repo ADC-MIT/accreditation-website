@@ -1,0 +1,41 @@
+---
+title: Faculty Internship Training Collaboration
+description: The `faculty_internship_training_collaboration` table records information about faculty members' internships, training, and collaborations with companies or institutions.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    faculty_id: {
+      type: 'uuid',
+      description: 'References the `id` field in the `faculty` table.',
+    },
+    name_of_itc: {
+      type: 'text',
+      description:
+        'The name of the internship, training, or collaboration (ITC).',
+    },
+    name_of_company: {
+      type: 'text',
+      description:
+        'The name of the company or institution, including location.',
+    },
+    type: {
+      type: 'FACULTY_ITC_TYPE',
+      description: 'The type of internship, training, or collaboration.',
+    },
+    outcomes: {
+      type: 'text',
+      description: 'Outcomes or key results from the ITC.',
+    },
+  }}
+/>
+
+## Relationships
+
+- `faculty_id` references the `id` field in the `faculty` table.
+
+<Cards>
+  <Card title="Go to Faculty Table" href="./faculty" />
+</Cards>

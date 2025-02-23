@@ -1,0 +1,31 @@
+---
+title: Faculty Student Innovative Projects
+description: The `faculty_student_innovative_projects` table records information about innovative projects where faculty members collaborate with students.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    faculty_id: {
+      type: 'uuid',
+      description: 'References the `id` field in the `faculty` table.',
+    },
+    name_of_event: {
+      type: 'text',
+      description: 'The name of the event or project.',
+    },
+    link_of_website: {
+      type: 'text',
+      description: 'A URL linking to more details about the project or event.',
+    },
+  }}
+/>
+
+## Relationships
+
+- `faculty_id` references the `id` field in the `faculty` table.
+
+<Cards>
+  <Card title="Go to Faculty Table" href="./faculty" />
+</Cards>

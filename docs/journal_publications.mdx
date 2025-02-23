@@ -1,0 +1,63 @@
+---
+title: Journal Publications
+description: The `journal_publications` table stores details about publications in academic journals, including journal reference, volume, issue number, sponsorship, and DOI.
+---
+
+
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description:
+        'Primary key of the table, uniquely identifies a journal publication.',
+    },
+    journal_id: {
+      type: 'uuid',
+      description: 'Foreign key referencing the `journals` table.',
+    },
+    journal_volume_number: {
+      type: 'int',
+      description:
+        'The volume number of the journal where the article is published.',
+    },
+    journal_issue_number: {
+      type: 'int',
+      description:
+        'The issue number of the journal where the article is published.',
+    },
+    sponsor_id: {
+      type: 'uuid',
+      description:
+        'Foreign key referencing the `sponsorships` table, if the publication was funded.',
+    },
+    year: {
+      type: 'int',
+      description: 'The year of publication.',
+    },
+    semester: {
+      type: 'ACADEMIC_SEMESTER',
+      description: 'The academic semester in which the publication was made.',
+    },
+    doi: {
+      type: 'varchar(255)',
+      description: 'Digital Object Identifier (DOI) for the publication.',
+    },
+    title: {
+      type: 'text',
+      description: 'Title of the published journal article.',
+    },
+  }}
+/>
+
+## Relationships
+
+- `journal_id` references `id` in the `journals` table.
+- `sponsor_id` references `id` in the `sponsorships` table.
+
+<Cards>
+  <Card title="Go to journals table" href="./journals" />
+  <Card title="Go to sponsorships table" href="./sponsorships" /> 
+</Cards>

@@ -1,0 +1,23 @@
+---
+title: Organizers
+description: This page stores information about different organizers, including their type and name.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies an organizer.',
+    },
+    type: {
+      type: 'COMMUNITY_TYPE',
+      description: 'The type of community or organizer.',
+    },
+    name: {
+      type: 'text',
+      description: 'The name of the organizer.',
+    },
+  }}
+/>

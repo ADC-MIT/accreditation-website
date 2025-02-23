@@ -1,0 +1,62 @@
+---
+title: Faculty Sponsored Research & Consultancy Work
+description: This page stores details of sponsored research projects, consultancy work, and institute seed money funding.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    type: {
+      type: 'FACULTY_SRPCWISM_TYPE',
+      description:
+        'Specifies the type of project, consultancy, or seed funding.',
+    },
+    name_of_principal_investigator: {
+      type: 'text',
+      description:
+        'Name of the principal investigator (PI) responsible for the project.',
+    },
+    name_of_co_principal_investigator: {
+      type: 'text',
+      description: 'Name of the co-principal investigator (if applicable).',
+      nullable: true,
+    },
+    department_id: {
+      type: 'uuid',
+      description:
+        'References the `id` field in the `departments` table, representing the associated department.',
+      nullable: true,
+    },
+    project_title: {
+      type: 'text',
+      description: 'The title of the research or consultancy project.',
+    },
+    name_of_funding_agency: {
+      type: 'text',
+      description: 'The name of the funding agency or organization.',
+    },
+    duration_of_project: {
+      type: 'text',
+      description: 'The duration of the project (e.g., in months or years).',
+    },
+    amount_inr: {
+      type: 'int',
+      description:
+        'The total funding amount received for the project (in INR).',
+    },
+    outcomes: {
+      type: 'text',
+      description:
+        'Key outcomes or impact of the research or consultancy project.',
+    },
+  }}
+/>
+
+## Relationships
+
+- `department_id` references the `id` field in the `departments` table.
+
+<Cards>
+  <Card title="Go to Department Table" href="./departments" />
+</Cards>

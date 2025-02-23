@@ -1,0 +1,36 @@
+---
+title: After Graduation
+description: This page stores information about students' post-graduation paths, including higher studies, employment, and other pursuits.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key, uniquely identifies each record.',
+    },
+    student_id: {
+      type: 'uuid',
+      description: 'References the student.',
+      relation: 'students.id',
+    },
+    year: {
+      type: 'int',
+      description: 'The year of graduation.',
+    },
+    type: {
+      type: 'AFTER_GRADUATION_TYPE',
+      description: 'The type of post-graduation activity (e.g., higher studies, job, entrepreneurship).',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `student_id` field references the `id` field in the `students` table.
+
+<Cards>
+  <Card title="Go to Students Table" href="./students" />
+</Cards>

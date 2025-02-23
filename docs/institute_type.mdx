@@ -1,0 +1,39 @@
+---
+title: Institute Type
+description: This page defines the different types of institutes based on their academic and administrative structure.
+---
+
+<TypeTable
+  type={{
+    DEEMED_TO_BE_UNIVERSITY: {
+      id: 'DEEMED_TO_BE_UNIVERSITY',
+      type: 'text',
+      description:
+        'An institute recognized as a university by the government but operates independently.',
+    },
+    UNIVERSITY: {
+      id: 'UNIVERSITY',
+      type: 'text',
+      description:
+        'A higher education institution that grants degrees and conducts research.',
+    },
+    AUTONOMOUS: {
+      id: 'AUTONOMOUS',
+      type: 'text',
+      description:
+        'An institute with academic independence but affiliated with a university.',
+    },
+    AFFILIATED: {
+      id: 'AFFILIATED',
+      type: 'text',
+      description:
+        'An institute that operates under the jurisdiction of a parent university.',
+    },
+    OTHER: {
+      id: 'OTHER',
+      type: 'text',
+      description:
+        'Any other type of educational institute that does not fall under the above categories.',
+    },
+  }}
+/>

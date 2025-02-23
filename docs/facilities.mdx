@@ -1,0 +1,46 @@
+---
+title: Facilities
+description: This page stores information about facilities available in the institution.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies a facility.',
+    },
+    name: {
+      type: 'text',
+      description: 'Name of the facility.',
+    },
+    type: {
+      type: 'text',
+      description: 'Type of facility (e.g., laboratory, library, sports complex).',
+    },
+    is_ict: {
+      type: 'bool',
+      description: 'Indicates if the facility is an ICT-enabled resource.',
+      default: false,
+    },
+    details: {
+      type: 'text',
+      description: 'Additional details about the facility.',
+      nullable: true,
+    },
+    reasons: {
+      type: 'text[]',
+      description: 'Reasons for having the facility.',
+    },
+    utilization: {
+      type: 'text',
+      description: 'Details on how the facility is utilized.',
+      nullable: true,
+    },
+    relevance_to_pos: {
+      type: 'text',
+      description: 'Relevance of the facility to Program Outcomes (POs).',
+    },
+  }}
+/>

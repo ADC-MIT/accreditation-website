@@ -1,13 +1,12 @@
 'use client';
 
+import { FormList } from '@/types';
 import { Globe, Search } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { useEffect, useRef, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
-
-import { FormList } from '@/types/input';
 
 import {
   Card,
@@ -17,21 +16,21 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 
-function navigateToInputForm(
+function navigateToInputTable(
   formId: string,
   router: ReturnType<typeof useRouter>
 ) {
   toast.promise(
     () =>
       new Promise((resolve) => {
-        router.push(`/input/${formId}`);
+        router.push(`/input/tables/${formId}`);
         // Simulate a delay to show the loading state
         setTimeout(resolve, 500);
       }),
     {
-      loading: 'Loading form details...',
-      success: 'Form details loaded',
-      error: 'Failed to load form details',
+      loading: 'Loading table data...',
+      success: 'Table data loaded',
+      error: 'Failed to load table data',
     }
   );
 }
@@ -80,7 +79,7 @@ export default function InputRootPageClient({ forms }: { forms: FormList }) {
           filteredForms.map((form) => (
             <Card
               key={form.id}
-              onClick={() => navigateToInputForm(form.id, router)}
+              onClick={() => navigateToInputTable(form.id, router)}
               className="group flex cursor-pointer items-start p-4 transition-colors duration-300 hover:bg-accent"
             >
               <div>

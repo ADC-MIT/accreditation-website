@@ -1,4 +1,6 @@
 import { MDXContent } from '@content-collections/mdx/react';
+import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
+import { TypeTable } from 'fumadocs-ui/components/type-table';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import {
   DocsBody,
@@ -26,7 +28,11 @@ export default async function Page(props: {
       <DocsBody>
         <MDXContent
           code={page.data.body}
-          components={{ ...defaultMdxComponents }}
+          components={{
+            ...defaultMdxComponents,
+            TypeTable,
+            img: (props) => <ImageZoom {...(props as any)} />,
+          }}
         />
       </DocsBody>
     </DocsPage>

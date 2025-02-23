@@ -1,0 +1,44 @@
+---
+title: Informational Events
+description: This page stores details about informational events, including speakers, participant counts, reports, and geotagged photographs.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, references an event.',
+      relation: 'events.id',
+    },
+    speaker: {
+      type: 'text',
+      description: 'The name of the speaker at the event.',
+    },
+    no_of_students: {
+      type: 'int',
+      description: 'The number of students who attended the event.',
+    },
+    no_of_teachers: {
+      type: 'int',
+      description: 'The number of teachers who attended the event.',
+    },
+    link_to_report: {
+      type: 'text',
+      description: 'A link to the event report.',
+    },
+    geotagged_photographs: {
+      type: 'text[]',
+      description: 'An array of links to geotagged photographs from the event.',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `id` field references the `id` field in the `events` table.
+
+<Cards>
+  <Card title="Go to Events Table" href="./events" />
+</Cards>

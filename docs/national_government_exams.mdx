@@ -1,0 +1,31 @@
+---
+title: National Government Exams
+description: This page stores information about national government exams taken by students.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies a national government exam record.',
+    },
+    student_id: {
+      type: 'uuid',
+      description: 'Foreign key referencing the `students` table.',
+    },
+    exam_type: {
+      type: 'NATIONAL_GOVERNMENT_EXAM_TYPE',
+      description: 'Type of national government exam the student appeared for.',
+    },
+  }}
+/>
+
+## Relationships
+
+- `student_id` references the `id` field in the `students` table.
+
+<Cards>
+  <Card title="Go to Students Table" href="./students" />
+</Cards>

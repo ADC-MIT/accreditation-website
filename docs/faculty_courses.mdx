@@ -1,0 +1,34 @@
+---
+title: Faculty Courses
+description: The `faculty_courses` table records information about courses associated with faculty members.
+---
+
+
+## Table Schema
+
+<TypeTable
+  type={{
+    faculty_id: {
+      type: 'uuid',
+      description: 'References the `id` field in the `faculty` table.',
+    },
+    name_of_course: {
+      type: 'text',
+      description: 'The name of the course taught by the faculty member.',
+    },
+    developed: {
+      type: 'bool',
+      description:
+        'Indicates whether the course was developed by the faculty member.',
+      default: 'false',
+    },
+  }}
+/>
+
+## Relationships
+
+- `faculty_id` references the `id` field in the `faculty` table.
+
+<Cards>
+  <Card title="Go to Faculty Table" href="./faculty" />
+</Cards>

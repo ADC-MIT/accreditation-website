@@ -1,8 +1,25 @@
-import { FormDetails, FormField } from '@/types/input';
+'use client';
 
+import type { FormDetails, FormField } from '@/types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
+import { useState } from 'react';
+
+import { getTableData } from '@/lib/actions/tables';
+
+import { Combobox } from '@/components/ui/combobox';
 import { DateTimePicker, TimePicker } from '@/components/ui/datetime-picker';
+import {
+  Form,
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormField as ShadcnFormField,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { MultiInput } from '@/components/ui/multi-input';
 import {
   Select,
@@ -14,14 +31,97 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 
-export function FormGenerator({ form }: { form: FormDetails }) {
-  const renderField = (field: FormField) => {
+import { Button } from './ui/button';
+
+function generateZodSchema(form: FormDetails) {
+  const shape: Record<string, any> = {};
+  form.fields.forEach((field) => {
+    let schema;
+    switch (field.fieldType) {
+      case 'input':
+        switch (field.inputOptions?.inputType) {
+          case 'boolean':
+            schema = z.boolean();
+            break;
+          case 'number':
+            schema = z.number();
+            break;
+          case 'date':
+          case 'datetime':
+          case 'time':
+            schema = z.date();
+            break;
+          case 'multi-input':
+            schema = z.array(z.string());
+            break;
+          default:
+            schema = z.string();
+        }
+        break;
+      case 'choice':
+        schema = z.string();
+        break;
+      default:
+        // static or unrecognized fields won't be in form data
+        return;
+    }
+    shape[field.id] = field.required ? schema : schema.optional();
+  });
+  return z.object(shape);
+}
+
+export function FormGenerator({
+  form,
+  onSubmit,
+}: {
+  form: FormDetails;
+  onSubmit?: (data: any) => void;
+}) {
+  const defaultValues: Record<string, any> = {};
+
+  form.fields.forEach((field) => {
+    if (field.fieldType === 'input') {
+      switch (field.inputOptions?.inputType) {
+        case 'boolean':
+          defaultValues[field.id] = false;
+          break;
+        case 'number':
+          defaultValues[field.id] = 0;
+          break;
+        case 'date':
+        case 'datetime':
+        case 'time':
+          defaultValues[field.id] = null;
+          break;
+        case 'multi-input':
+          defaultValues[field.id] = [];
+          break;
+        default:
+          defaultValues[field.id] = '';
+      }
+    } else if (field.fieldType === 'choice') {
+      defaultValues[field.id] = '';
+    }
+  });
+
+  const schema = generateZodSchema(form);
+  const formMethods = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
+    defaultValues,
+  });
+
+  const handleSubmission = (data: any) => {
+    if (onSubmit) onSubmit(data);
+    else console.log(data);
+  };
+
+  const renderField = (field: FormField, rhfField: any) => {
     switch (field.fieldType) {
       case 'input':
         switch (field.inputOptions?.inputType) {
           case 'boolean':
             return (
-              <Select>
+              <Select {...rhfField}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select an option" />
                 </SelectTrigger>
@@ -32,51 +132,135 @@ export function FormGenerator({ form }: { form: FormDetails }) {
               </Select>
             );
           case 'date':
-            return <DateTimePicker granularity="day" />;
+            return (
+              <DateTimePicker
+                value={rhfField.value}
+                onChange={(date) => rhfField.onChange(date)}
+                granularity="day"
+              />
+            );
           case 'datetime':
-            return <DateTimePicker granularity="minute" />;
+            return (
+              <DateTimePicker
+                value={rhfField.value}
+                onChange={(date) => rhfField.onChange(date)}
+                granularity="minute"
+              />
+            );
           case 'multi-input':
-            return <MultiInput />;
+            return (
+              <MultiInput
+                values={rhfField.value || []}
+                onChange={(val) => rhfField.onChange(val)}
+              />
+            );
           case 'number':
-            return <Input type="number" />;
+            return (
+              <Input
+                type="number"
+                {...rhfField}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  rhfField.onChange(
+                    value === '' ? undefined : e.target.valueAsNumber
+                  );
+                }}
+              />
+            );
           case 'string':
-            return <Input />;
+            return <Input {...rhfField} />;
           case 'textarea':
-            return <Textarea />;
+            return <Textarea {...rhfField} />;
           case 'time':
             return (
               <div className="flex justify-start">
-                <TimePicker granularity="minute" />
+                <TimePicker
+                  date={rhfField.value}
+                  onChange={(date) => rhfField.onChange(date)}
+                  granularity="minute"
+                />
               </div>
             );
         }
-      case 'choice':
-        switch (field.choiceOptions?.choiceSource) {
-          case 'enum':
-            return (
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select an option" />
-                </SelectTrigger>
-                <SelectContent>
-                  {field.choiceOptions.enumOptions?.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            );
-          case 'table':
-            // TODO: Implement table source
-            return (
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select an option" />
-                </SelectTrigger>
-              </Select>
-            );
+      case 'choice': {
+        const { choiceOptions } = field;
+        const { choiceSource } = choiceOptions || {};
+
+        if (choiceSource === 'enum') {
+          return (
+            <Select
+              value={rhfField.value}
+              onValueChange={(value) => rhfField.onChange(value)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select an option" />
+              </SelectTrigger>
+              <SelectContent>
+                {choiceOptions?.enumOptions?.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          );
         }
+
+        if (choiceSource === 'table') {
+          const tableName = choiceOptions?.tableOptions?.tableName;
+          const labelColumn = choiceOptions?.tableOptions?.labelColumn;
+          const valueColumn = choiceOptions?.tableOptions?.valueColumn;
+
+          const [items, setItems] = useState<
+            Array<{ label: string; value: string }>
+          >([]);
+          const [isLoading, setIsLoading] = useState(false);
+          const [error, setError] = useState(false);
+          const [optionsLoaded, setOptionsLoaded] = useState(false);
+          const [open, setOpen] = useState(false);
+
+          const handleOpenChange = (nextOpen: boolean) => {
+            setOpen(nextOpen);
+            if (
+              nextOpen &&
+              !optionsLoaded &&
+              tableName &&
+              labelColumn &&
+              valueColumn
+            ) {
+              setIsLoading(true);
+              setError(false);
+              getTableData({
+                slug: tableName,
+                columns: [labelColumn, valueColumn],
+              })
+                .then((rows) => {
+                  const mapped = rows.data.map((row: any) => ({
+                    label: row[labelColumn],
+                    value: row[valueColumn],
+                  }));
+                  setItems(mapped);
+                  setOptionsLoaded(true);
+                })
+                .catch(() => setError(true))
+                .finally(() => setIsLoading(false));
+            }
+          };
+
+          return (
+            <Combobox
+              items={!optionsLoaded || error ? [] : items}
+              onSelect={(val) => rhfField.onChange(val)}
+              placeholder="Select an option"
+              open={open}
+              onOpenChange={handleOpenChange}
+              isLoading={isLoading}
+              hasError={error}
+            />
+          );
+        }
+        return null;
+      }
       case 'static':
         switch (field.staticOptions?.staticType) {
           case 'h1':
@@ -107,27 +291,37 @@ export function FormGenerator({ form }: { form: FormDetails }) {
     }
   };
 
-  const renderFieldWithLabel = (field: FormField) => {
-    if (field.fieldType === 'static') {
-      return renderField(field);
-    }
-
-    return (
-      <div className="space-y-2">
-        <Label>
-          {field.label}{' '}
-          {field.required && <span className="text-destructive">*</span>}
-        </Label>
-        {renderField(field)}
-      </div>
-    );
-  };
-
   return (
-    <form className="grid grid-cols-2 gap-4">
-      {form.fields.map((field) => (
-        <div key={field.id}>{renderFieldWithLabel(field)}</div>
-      ))}
-    </form>
+    <Form {...formMethods}>
+      <form
+        onSubmit={formMethods.handleSubmit(handleSubmission)}
+        className="grid grid-cols-2 gap-4"
+      >
+        {form.fields.map((field) => (
+          <ShadcnFormField
+            key={field.id}
+            control={formMethods.control}
+            name={field.id}
+            render={({ field: rhfField }) => (
+              <FormItem>
+                <FormLabel>
+                  {field.label}
+                  {field.inputOptions?.inputType === 'multi-input' &&
+                    ' (Multi-Input)'}{' '}
+                  {field.required && (
+                    <span className="text-destructive">*</span>
+                  )}
+                </FormLabel>
+                <FormControl>{renderField(field, rhfField)}</FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        ))}
+        <div className="col-span-2 flex justify-end">
+          <Button type="submit">Submit</Button>
+        </div>
+      </form>
+    </Form>
   );
 }

@@ -1,0 +1,96 @@
+---
+title: Faculty
+description: This page documents the `faculty` table, which stores details about faculty members, including their employment details, association, and academic background.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description:
+        'Primary key, uniquely identifies a faculty member. References `users.id`.',
+    },
+    employee_id: {
+      type: 'varchar(50)',
+      description: 'Unique employee identifier. Can be null.',
+    },
+    department_id: {
+      type: 'uuid',
+      description:
+        'References `departments.id`, indicating faculty department.',
+    },
+    designation: {
+      type: 'varchar(100)',
+      description: 'Current designation of the faculty member.',
+    },
+    pan_no: {
+      type: 'text',
+      description: 'PAN number of the faculty member.',
+    },
+    apaar_id: {
+      type: 'text',
+      description: 'APAAR ID of the faculty member. Can be null.',
+    },
+    highest_degree: {
+      type: 'FACULTY_HIGHEST_DEGREE',
+      description: 'The highest academic degree obtained by the faculty.',
+    },
+    university: {
+      type: 'text',
+      description: 'University from which the highest degree was obtained.',
+    },
+    area_of_specialization: {
+      type: 'text',
+      description: 'Faculty member’s area of specialization.',
+    },
+    date_of_join: {
+      type: 'date',
+      description: 'Date when the faculty member joined.',
+    },
+    designation_at_join: {
+      type: 'varchar(100)',
+      description: 'Designation at the time of joining.',
+    },
+    designated_as_professor: {
+      type: 'date',
+      description: 'Date when designated as Professor. Can be null.',
+    },
+    designated_as_associate_professor: {
+      type: 'date',
+      description: 'Date when designated as Associate Professor. Can be null.',
+    },
+    designated_as_assistant_professor: {
+      type: 'date',
+      description: 'Date when designated as Assistant Professor. Can be null.',
+    },
+    nature_of_association: {
+      type: 'FACULTY_NATURE_OF_ASSOCIATION',
+      description: 'Defines the nature of faculty association.',
+    },
+    contractual_obligation: {
+      type: 'FACULTY_CONTRACTUAL_OBLIGATION',
+      description: 'Defines the contractual obligation.',
+    },
+    currently_associated: {
+      type: 'bool',
+      description:
+        'Indicates if the faculty is currently associated. Default is true.',
+    },
+    date_of_leave: {
+      type: 'date',
+      description: 'Date of leaving the institution. Can be null.',
+    },
+  }}
+/>
+
+## Relationships
+
+- `id` references the `users.id` field.
+- `department_id` references the `departments.id` field.
+
+<Cards>
+  <Card title="Go to Users Table" href="./users" />
+  <Card title="Go to Departments Table" href="./departments" />
+</Cards>

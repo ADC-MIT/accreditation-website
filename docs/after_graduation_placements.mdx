@@ -1,0 +1,36 @@
+---
+title: After Graduation Placements
+description: This page stores information about students' job placements after graduation, including employer details and salary.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    after_graduation_id: {
+      type: 'uuid',
+      description: 'References the after graduation record.',
+      relation: 'after_graduation.id',
+      primary: true,
+    },
+    employer_id: {
+      type: 'uuid',
+      description: 'References the employing company.',
+      relation: 'companies.id',
+    },
+    salary: {
+      type: 'int',
+      description: 'Salary offered to the student (in INR).',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `after_graduation_id` field references the `id` field in the `after_graduation` table.
+- The `employer_id` field references the `id` field in the `companies` table.
+
+<Cards>
+  <Card title="Go to After Graduation Table" href="./after_graduation" />
+  <Card title="Go to Companies Table" href="./companies" />
+</Cards>

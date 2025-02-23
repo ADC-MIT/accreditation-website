@@ -1,0 +1,52 @@
+---
+title: IPR
+description: The `ipr` table records details of Intellectual Property Rights (IPR), including the awardee, awarder, government recognition status, year, unique ID, title, type, and status.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies an IPR record.',
+    },
+    awardee_id: {
+      type: 'uuid',
+      description: 'The ID of the user who received the IPR award. Can be null.',
+    },
+    awarder_name: {
+      type: 'text',
+      description: 'The name of the awarding entity. Can be null.',
+    },
+    government_recognized: {
+      type: 'boolean',
+      description: 'Indicates whether the IPR is government-recognized.',
+      default: false,
+    },
+    year: {
+      type: 'int',
+      description: 'The year in which the IPR was awarded or filed.',
+    },
+    uuid: {
+      type: 'text',
+      description: 'The unique identifier for the patent/design.',
+    },
+    title: {
+      type: 'text',
+      description: 'The title of the IPR (e.g., patent or design name).',
+    },
+    type: {
+      type: 'IPR_TYPE',
+      description: 'The type of IPR (e.g., patent, trademark, copyright, etc.).',
+    },
+    status: {
+      type: 'IPR_STATUS',
+      description: 'The current status of the IPR (e.g., filed, granted, rejected, etc.).',
+    },
+  }}
+/>
+
+## Relationships
+
+- The `awardee_id` field references the `id` field in the `users` table.

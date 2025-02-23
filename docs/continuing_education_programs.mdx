@@ -1,0 +1,31 @@
+---
+title: Continuing Education Programs
+description: The `continuing_education_programs` table records information about educational programs designed for continued learning.
+---
+
+## Table Schema
+
+<TypeTable
+  type={{
+    id: {
+      type: 'uuid',
+      description: 'Primary key of the table, uniquely identifies a program.',
+    },
+    year: {
+      type: 'int',
+      description: 'The year in which the program was conducted.',
+    },
+    name: {
+      type: 'text',
+      description: 'The name of the continuing education program.',
+    },
+    no_of_participants: {
+      type: 'int',
+      description: 'The total number of participants in the program.',
+    },
+    no_of_days: {
+      type: 'int',
+      description: 'The duration of the program in days.',
+    },
+  }}
+/>

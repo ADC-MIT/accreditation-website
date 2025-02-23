@@ -1,5 +1,7 @@
 'use client';
 
+import { X } from 'lucide-react';
+
 import React, { KeyboardEvent, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -34,7 +36,7 @@ export function MultiInput({ values = [], onChange }: MultiInputProps) {
     <div>
       <Input
         value={inputValue}
-        placeholder="Type and press Enter"
+        placeholder="To add multiple values, press Enter after each value"
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={handleKeyDown}
       />
@@ -42,11 +44,16 @@ export function MultiInput({ values = [], onChange }: MultiInputProps) {
         {items.map((item, index) => (
           <div
             key={index}
-            className="flex items-center space-x-2 rounded bg-gray-100 p-1"
+            className="flex items-center space-x-1 rounded-full bg-muted pl-4 text-muted-foreground"
           >
-            <span>{item}</span>
-            <Button variant="ghost" size="sm" onClick={() => removeItem(index)}>
-              x
+            <p className="px-1">{item}</p>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full hover:bg-muted-foreground/10"
+              onClick={() => removeItem(index)}
+            >
+              <X />
             </Button>
           </div>
         ))}
