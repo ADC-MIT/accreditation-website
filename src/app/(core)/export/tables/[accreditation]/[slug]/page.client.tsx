@@ -34,17 +34,11 @@ function parseTitleDescription(fullDescription: string) {
 }
 
 export default function ExportTableRootPageClient({
-  accreditation,
-  slug,
   table,
-  description,
 }: {
-  accreditation: string;
-  slug: string;
   table: TableDetails;
-  description: string;
 }) {
-  const [title, desc] = parseTitleDescription(description);
+  const [title, desc] = parseTitleDescription(table.description || '');
   const data = table?.data || [];
   const headers = data.length ? Object.keys(data[0]) : [];
   const formattedHeaders = headers.map((header) =>
@@ -74,7 +68,11 @@ export default function ExportTableRootPageClient({
         <div className="flex flex-col space-y-8">
           <div className="flex justify-between">
             <div></div>
-            <ExportButton title={title} description={desc} tableData={[]} />
+            <ExportButton
+              title={title}
+              description={desc}
+              tableData={table.data || []}
+            />
           </div>
           <Card className="p-0">
             <div className="overflow-x-auto">

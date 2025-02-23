@@ -8,12 +8,5 @@ export default async function InputTableRootPage(props: {
   const { accreditation, slug } = await props.params;
   const table = await getExportData({ accreditation, slug });
 
-  return (
-    <ExportTableRootPageClient
-      accreditation={accreditation}
-      slug={slug}
-      table={table}
-      description={table.description || ''}
-    />
-  );
+  return <ExportTableRootPageClient table={table} />;
 }
