@@ -5,6 +5,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { useEffect, useState } from 'react';
+
+import { getTableData } from '@/lib/actions/tables';
+
+import { Combobox } from '@/components/ui/combobox';
 import { DateTimePicker, TimePicker } from '@/components/ui/datetime-picker';
 import {
   Form,
@@ -72,10 +77,37 @@ export function FormGenerator({
   form: FormDetails;
   onSubmit?: (data: any) => void;
 }) {
+  const defaultValues: Record<string, any> = {};
+
+  form.fields.forEach((field) => {
+    if (field.fieldType === 'input') {
+      switch (field.inputOptions?.inputType) {
+        case 'boolean':
+          defaultValues[field.id] = false;
+          break;
+        case 'number':
+          defaultValues[field.id] = 0;
+          break;
+        case 'date':
+        case 'datetime':
+        case 'time':
+          defaultValues[field.id] = null;
+          break;
+        case 'multi-input':
+          defaultValues[field.id] = [];
+          break;
+        default:
+          defaultValues[field.id] = '';
+      }
+    } else if (field.fieldType === 'choice') {
+      defaultValues[field.id] = '';
+    }
+  });
+
   const schema = generateZodSchema(form);
   const formMethods = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
-    defaultValues: {},
+    defaultValues,
   });
 
   const handleSubmission = (data: any) => {
@@ -127,7 +159,10 @@ export function FormGenerator({
         switch (field.choiceOptions?.choiceSource) {
           case 'enum':
             return (
-              <Select {...rhfField}>
+              <Select
+                value={rhfField.value}
+                onValueChange={(value) => rhfField.onChange(value)}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Select an option" />
                 </SelectTrigger>
@@ -140,15 +175,59 @@ export function FormGenerator({
                 </SelectContent>
               </Select>
             );
-          case 'table':
-            // TODO: Implement table source
+          case 'table': {
+            const tableName = field.choiceOptions?.tableOptions?.tableName;
+            const labelColumn = field.choiceOptions?.tableOptions?.labelColumn;
+            const valueColumn = field.choiceOptions?.tableOptions?.valueColumn;
+
+            const [items, setItems] = useState<
+              Array<{ label: string; value: string }>
+            >([]);
+            const [isLoading, setIsLoading] = useState(false);
+            const [error, setError] = useState(false);
+            const [optionsLoaded, setOptionsLoaded] = useState(false);
+            const [open, setOpen] = useState(false);
+
+            const handleOpenChange = (nextOpen: boolean) => {
+              setOpen(nextOpen);
+              if (
+                nextOpen &&
+                !optionsLoaded &&
+                tableName &&
+                labelColumn &&
+                valueColumn
+              ) {
+                setIsLoading(true);
+                setError(false);
+                getTableData({
+                  slug: tableName,
+                  columns: [labelColumn, valueColumn],
+                })
+                  .then((rows) => {
+                    const mapped = rows.data.map((row: any) => ({
+                      label: row[labelColumn],
+                      value: row[valueColumn],
+                    }));
+                    setItems(mapped);
+                    setOptionsLoaded(true);
+                  })
+                  .catch(() => setError(true))
+                  .finally(() => setIsLoading(false));
+              }
+            };
+
             return (
-              <Select {...rhfField}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select an option" />
-                </SelectTrigger>
-              </Select>
+              <Combobox
+                items={!optionsLoaded || error ? [] : items}
+                onSelect={(val) => rhfField.onChange(val)}
+                placeholder="Select an option"
+                open={open}
+                onOpenChange={handleOpenChange}
+                isLoading={isLoading}
+                hasError={error}
+              />
             );
+          }
         }
       case 'static':
         switch (field.staticOptions?.staticType) {
