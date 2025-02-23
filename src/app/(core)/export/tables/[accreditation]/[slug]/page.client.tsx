@@ -1,9 +1,9 @@
 'use client';
 
 import { TableDetails } from '@/types';
-import { Download, Fingerprint, Sheet } from 'lucide-react';
+import { Fingerprint, Sheet } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
+import ExportButton from '@/components/export-button';
 import {
   Card,
   CardDescription,
@@ -74,9 +74,7 @@ export default function ExportTableRootPageClient({
         <div className="flex flex-col space-y-8">
           <div className="flex justify-between">
             <div></div>
-            <Button variant="secondary">
-              <Download /> Export Data
-            </Button>
+            <ExportButton title={title} description={desc} tableData={[]} />
           </div>
           <Card className="p-0">
             <div className="overflow-x-auto">

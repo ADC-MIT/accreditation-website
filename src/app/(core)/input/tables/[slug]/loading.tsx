@@ -42,10 +42,10 @@ export default function InputTableRootPageSkeleton() {
       <section className="flex flex-col space-y-8">
         <div className="flex justify-between">
           <Button disabled>
-            <SquarePen className="mr-2" /> Input Data
+            <SquarePen /> Input Data
           </Button>
           <Button variant="secondary" disabled>
-            <Download className="mr-2" /> Export Data
+            <Download /> Export Data
           </Button>
         </div>
 

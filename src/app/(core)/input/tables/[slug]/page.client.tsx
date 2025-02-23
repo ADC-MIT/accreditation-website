@@ -1,11 +1,12 @@
 'use client';
 
 import { TableDetails } from '@/types';
-import { Download, Fingerprint, Sheet, SquarePen } from 'lucide-react';
+import { Fingerprint, Sheet, SquarePen } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { useRouter } from 'next/navigation';
 
+import ExportButton from '@/components/export-button';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -91,9 +92,13 @@ export default function InputTableRootPageClient({
             <Button onClick={() => navigateToInputForm(slug, router)}>
               <SquarePen /> Input Data
             </Button>
-            <Button variant="secondary">
-              <Download /> Export Data
-            </Button>
+            <ExportButton
+              title={`${slug
+                .replace(/_/g, ' ')
+                .replace(/\b\w/g, (char) => char.toUpperCase())} Table`}
+              description="This data has been exported manually from MIT-ARS."
+              tableData={table.data || []}
+            />
           </div>
           <Card className="p-0">
             <div className="overflow-x-auto">
@@ -117,7 +122,8 @@ export default function InputTableRootPageClient({
                       <TableRow key={row.id}>
                         {headers.map((header) => (
                           <TableCell key={`${row.id}-${header}`}>
-                            {header.toLowerCase().includes('id') ? (
+                            {header.toLowerCase().includes('id') ||
+                            header.toLowerCase() === 'sdg_goals' ? (
                               <Tooltip>
                                 <TooltipTrigger>
                                   <span className="cursor-pointer">
