@@ -1,11 +1,11 @@
 'use client';
 
-import { FormDetails, FormField } from '@/types';
+import type { FormDetails, FormField } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { getTableData } from '@/lib/actions/tables';
 
@@ -132,9 +132,21 @@ export function FormGenerator({
               </Select>
             );
           case 'date':
-            return <DateTimePicker granularity="day" {...rhfField} />;
+            return (
+              <DateTimePicker
+                value={rhfField.value}
+                onChange={(date) => rhfField.onChange(date)}
+                granularity="day"
+              />
+            );
           case 'datetime':
-            return <DateTimePicker granularity="minute" {...rhfField} />;
+            return (
+              <DateTimePicker
+                value={rhfField.value}
+                onChange={(date) => rhfField.onChange(date)}
+                granularity="minute"
+              />
+            );
           case 'multi-input':
             return (
               <MultiInput
@@ -143,7 +155,18 @@ export function FormGenerator({
               />
             );
           case 'number':
-            return <Input type="number" {...rhfField} />;
+            return (
+              <Input
+                type="number"
+                {...rhfField}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  rhfField.onChange(
+                    value === '' ? undefined : e.target.valueAsNumber
+                  );
+                }}
+              />
+            );
           case 'string':
             return <Input {...rhfField} />;
           case 'textarea':
@@ -151,84 +174,93 @@ export function FormGenerator({
           case 'time':
             return (
               <div className="flex justify-start">
-                <TimePicker granularity="minute" {...rhfField} />
+                <TimePicker
+                  date={rhfField.value}
+                  onChange={(date) => rhfField.onChange(date)}
+                  granularity="minute"
+                />
               </div>
             );
         }
-      case 'choice':
-        switch (field.choiceOptions?.choiceSource) {
-          case 'enum':
-            return (
-              <Select
-                value={rhfField.value}
-                onValueChange={(value) => rhfField.onChange(value)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select an option" />
-                </SelectTrigger>
-                <SelectContent>
-                  {field.choiceOptions.enumOptions?.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            );
-          case 'table': {
-            const tableName = field.choiceOptions?.tableOptions?.tableName;
-            const labelColumn = field.choiceOptions?.tableOptions?.labelColumn;
-            const valueColumn = field.choiceOptions?.tableOptions?.valueColumn;
+      case 'choice': {
+        const { choiceOptions } = field;
+        const { choiceSource } = choiceOptions || {};
 
-            const [items, setItems] = useState<
-              Array<{ label: string; value: string }>
-            >([]);
-            const [isLoading, setIsLoading] = useState(false);
-            const [error, setError] = useState(false);
-            const [optionsLoaded, setOptionsLoaded] = useState(false);
-            const [open, setOpen] = useState(false);
-
-            const handleOpenChange = (nextOpen: boolean) => {
-              setOpen(nextOpen);
-              if (
-                nextOpen &&
-                !optionsLoaded &&
-                tableName &&
-                labelColumn &&
-                valueColumn
-              ) {
-                setIsLoading(true);
-                setError(false);
-                getTableData({
-                  slug: tableName,
-                  columns: [labelColumn, valueColumn],
-                })
-                  .then((rows) => {
-                    const mapped = rows.data.map((row: any) => ({
-                      label: row[labelColumn],
-                      value: row[valueColumn],
-                    }));
-                    setItems(mapped);
-                    setOptionsLoaded(true);
-                  })
-                  .catch(() => setError(true))
-                  .finally(() => setIsLoading(false));
-              }
-            };
-
-            return (
-              <Combobox
-                items={!optionsLoaded || error ? [] : items}
-                onSelect={(val) => rhfField.onChange(val)}
-                placeholder="Select an option"
-                open={open}
-                onOpenChange={handleOpenChange}
-                isLoading={isLoading}
-                hasError={error}
-              />
-            );
-          }
+        if (choiceSource === 'enum') {
+          return (
+            <Select
+              value={rhfField.value}
+              onValueChange={(value) => rhfField.onChange(value)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select an option" />
+              </SelectTrigger>
+              <SelectContent>
+                {choiceOptions?.enumOptions?.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          );
         }
+
+        if (choiceSource === 'table') {
+          const tableName = choiceOptions?.tableOptions?.tableName;
+          const labelColumn = choiceOptions?.tableOptions?.labelColumn;
+          const valueColumn = choiceOptions?.tableOptions?.valueColumn;
+
+          const [items, setItems] = useState<
+            Array<{ label: string; value: string }>
+          >([]);
+          const [isLoading, setIsLoading] = useState(false);
+          const [error, setError] = useState(false);
+          const [optionsLoaded, setOptionsLoaded] = useState(false);
+          const [open, setOpen] = useState(false);
+
+          const handleOpenChange = (nextOpen: boolean) => {
+            setOpen(nextOpen);
+            if (
+              nextOpen &&
+              !optionsLoaded &&
+              tableName &&
+              labelColumn &&
+              valueColumn
+            ) {
+              setIsLoading(true);
+              setError(false);
+              getTableData({
+                slug: tableName,
+                columns: [labelColumn, valueColumn],
+              })
+                .then((rows) => {
+                  const mapped = rows.data.map((row: any) => ({
+                    label: row[labelColumn],
+                    value: row[valueColumn],
+                  }));
+                  setItems(mapped);
+                  setOptionsLoaded(true);
+                })
+                .catch(() => setError(true))
+                .finally(() => setIsLoading(false));
+            }
+          };
+
+          return (
+            <Combobox
+              items={!optionsLoaded || error ? [] : items}
+              onSelect={(val) => rhfField.onChange(val)}
+              placeholder="Select an option"
+              open={open}
+              onOpenChange={handleOpenChange}
+              isLoading={isLoading}
+              hasError={error}
+            />
+          );
+        }
+        return null;
+      }
       case 'static':
         switch (field.staticOptions?.staticType) {
           case 'h1':
