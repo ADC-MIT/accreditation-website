@@ -35,9 +35,7 @@ export async function getNAACFields({
   }
 }
 
-export async function getNBAFields({ slug }: { slug?: string }): Promise<{
-  [key: string]: string;
-}> {
+export async function getNBAFields({ slug }: { slug?: string }): Promise<AccreditationDetails> {
   try {
     const token = await getToken();
     const response = await fetch(
@@ -60,9 +58,7 @@ export async function getNBAFields({ slug }: { slug?: string }): Promise<{
   }
 }
 
-export async function getNIRFFields({ slug }: { slug?: string }): Promise<{
-  [key: string]: string;
-}> {
+export async function getNIRFFields({ slug }: { slug?: string }): Promise<AccreditationDetails> {
   try {
     const token = await getToken();
     const response = await fetch(
