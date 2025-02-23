@@ -35,7 +35,7 @@ function ExportCard({
   return (
     <div>
       <Card
-        className="relative cursor-pointer overflow-hidden"
+        className="relative cursor-pointer overflow-hidden transition-colors duration-300 hover:bg-accent"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex items-center p-4">
@@ -86,13 +86,13 @@ function formatTitle(key: string): string {
 function IconCard({ title, href }: { title: string; href: string }) {
   return (
     <Link href={href} passHref>
-      <Card className="relative cursor-pointer overflow-hidden">
+      <Card className="group relative cursor-pointer overflow-hidden transition-colors duration-300 hover:bg-accent">
         <div className="flex items-center p-4">
           <FileText strokeWidth={1.5} className="mr-4 size-8 text-[#f0981d]" />
           <div className="flex-1">
             <h2 className="text-lg font-semibold">{title}</h2>
           </div>
-          <ExternalLink className="size-4" />
+          <ExternalLink className="size-4 text-muted-foreground transition-colors duration-300 group-hover:text-foreground" />
         </div>
       </Card>
     </Link>
@@ -122,21 +122,44 @@ export default function ExportRootPageClient({
         </div>
       </Card>
       <div className="flex flex-col space-y-4">
-        <ExportCard title="NAAC" description="NAAC Data">
+        <ExportCard
+          title="NAAC"
+          description="National Assessment and Accreditation Council"
+        >
           {Object.entries(naacFields).map(([key]) => (
             <IconCard key={key} title={formatTitle(key)} href={key} />
           ))}
         </ExportCard>
-        <ExportCard title="NBA" description="NBA Data">
+        <ExportCard title="NBA" description="National Board of Accreditation">
           {Object.entries(nbaFields).map(([key]) => (
             <IconCard key={key} title={formatTitle(key)} href={key} />
           ))}
         </ExportCard>
-        <ExportCard title="NIRF" description="NIRF Data">
+        <ExportCard
+          title="NIRF"
+          description="National Institutional Ranking Framework"
+        >
           {Object.entries(nirfFields).map(([key]) => (
             <IconCard key={key} title={formatTitle(key)} href={key} />
           ))}
         </ExportCard>
+        <Link href="/input" passHref>
+          <Card className="relative cursor-pointer overflow-hidden transition-colors duration-300 hover:bg-accent">
+            <div className="flex items-center p-4">
+              <FileText
+                strokeWidth={1.5}
+                className="mr-4 size-12 text-[#f0981d]"
+              />
+              <div className="flex-1">
+                <h2 className="text-xl font-semibold">Export Data Manually</h2>
+                <CardDescription>
+                  For IQAC, Academic Audit and other subjective accreditations,
+                  export data here.
+                </CardDescription>
+              </div>
+            </div>
+          </Card>
+        </Link>
       </div>
     </div>
   );
