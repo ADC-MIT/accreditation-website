@@ -46,6 +46,9 @@ function generateZodSchema(form: FormDetails) {
           case 'time':
             schema = z.date();
             break;
+          case 'multi-input':
+            schema = z.array(z.string());
+            break;
           default:
             schema = z.string();
         }
@@ -186,7 +189,9 @@ export function FormGenerator({
             render={({ field: rhfField }) => (
               <FormItem>
                 <FormLabel>
-                  {field.label}{' '}
+                  {field.label}
+                  {field.inputOptions?.inputType === 'multi-input' &&
+                    ' (Multi-Input)'}{' '}
                   {field.required && (
                     <span className="text-destructive">*</span>
                   )}
