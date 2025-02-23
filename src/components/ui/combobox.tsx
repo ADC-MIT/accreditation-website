@@ -1,4 +1,4 @@
-import { Check, ChevronsUpDown } from 'lucide-react';
+import { Check, ChevronsUpDown, Loader2 } from 'lucide-react';
 
 import * as React from 'react';
 
@@ -69,7 +69,9 @@ export function Combobox({
           />
           <CommandList>
             {isLoading ? (
-              <div className="px-4 py-2">Loading...</div>
+              <div className="flex items-center justify-center px-4 py-2">
+                <Loader2 className="animate-spin" />
+              </div>
             ) : hasError ? (
               <div className="px-4 py-2">
                 there was an error while fetching data.

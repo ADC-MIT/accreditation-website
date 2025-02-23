@@ -8,9 +8,10 @@ import {
   FolderClosed,
   FolderDown,
   FolderOpen,
+  Search,
 } from 'lucide-react';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Link from 'next/link';
 
@@ -20,27 +21,33 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 
 function ExportCard({
   title,
   description,
   children,
+  forceOpen = false,
 }: {
   title: string;
   description: string;
   children?: React.ReactNode;
+  forceOpen?: boolean;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const effectiveOpen = isOpen || forceOpen;
 
   return (
     <div>
       <Card
         className="relative cursor-pointer overflow-hidden transition-colors duration-300 hover:bg-accent"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          if (!forceOpen) setIsOpen(!isOpen);
+        }}
       >
         <div className="flex items-center p-4">
-          {isOpen ? (
+          {effectiveOpen ? (
             <FolderOpen
               strokeWidth={1.5}
               className="mr-4 size-12 text-[#f0981d]"
@@ -56,11 +63,11 @@ function ExportCard({
             <CardDescription>{description}</CardDescription>
           </div>
           <ChevronRight
-            className={`size-6 transition-transform ${isOpen ? 'rotate-90' : ''}`}
+            className={`size-6 transition-transform ${effectiveOpen ? 'rotate-90' : ''}`}
           />
         </div>
       </Card>
-      {isOpen && (
+      {effectiveOpen && (
         <div className="flex px-4">
           <Separator
             orientation="vertical"
@@ -75,16 +82,15 @@ function ExportCard({
   );
 }
 
-function formatTitle(key: string): string {
-  return key
-    .replace(/(\d)_/g, '$1.')
-    .replace(/(\d)_(\w)/g, '$1 $2')
-    .replace(/_/g, ' ')
-    .replace(/(\d)([a-z])/g, '$1 $2')
-    .replace(/\b\w/g, (char) => char.toUpperCase());
-}
-
-function IconCard({ title, href }: { title: string; href: string }) {
+function IconCard({
+  title,
+  description,
+  href,
+}: {
+  title: string;
+  description: string;
+  href: string;
+}) {
   return (
     <Link href={href} passHref>
       <Card className="group relative cursor-pointer overflow-hidden transition-colors duration-300 hover:bg-accent">
@@ -92,12 +98,21 @@ function IconCard({ title, href }: { title: string; href: string }) {
           <FileText strokeWidth={1.5} className="mr-4 size-8 text-[#f0981d]" />
           <div className="flex-1">
             <h2 className="text-lg font-semibold">{title}</h2>
+            <CardDescription>{description}</CardDescription>
           </div>
           <ExternalLink className="size-4 text-muted-foreground transition-colors duration-300 group-hover:text-foreground" />
         </div>
       </Card>
     </Link>
   );
+}
+
+function parseTitleDescription(fullDescription: string) {
+  const match = fullDescription.match(/^(.*?)\)\s?(.*)$/);
+  if (!match) {
+    return [fullDescription, ''];
+  }
+  return [match[1] + ')', match[2]];
 }
 
 export default function ExportRootPageClient({
@@ -109,6 +124,24 @@ export default function ExportRootPageClient({
   nbaFields: AccreditationDetails;
   nirfFields: AccreditationDetails;
 }) {
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, []);
+
+  const filterFields = (fields: AccreditationDetails) =>
+    Object.entries(fields).filter(([_, field]) =>
+      field.description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+  const naacFiltered = filterFields(naacFields);
+  const nbaFiltered = filterFields(nbaFields);
+  const nirfFiltered = filterFields(nirfFields);
+
   return (
     <div className="flex flex-col space-y-8">
       <Card className="relative overflow-hidden">
@@ -122,27 +155,74 @@ export default function ExportRootPageClient({
           <FolderDown className="size-36 text-muted" />
         </div>
       </Card>
+      <div className="flex items-center space-x-2">
+        <Search className="size-6 text-muted-foreground" />
+        <Input
+          type="text"
+          placeholder="What would you like to export?"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          ref={searchInputRef}
+          className="bg-accent focus-visible:ring-accent"
+        />
+      </div>
       <div className="flex flex-col space-y-4">
         <ExportCard
           title="NAAC"
           description="National Assessment and Accreditation Council"
+          forceOpen={!!searchQuery && naacFiltered.length > 0}
         >
-          {Object.entries(naacFields).map(([key]) => (
-            <IconCard key={key} title={formatTitle(key)} href={key} />
-          ))}
+          {naacFiltered.map(([key, field]) => {
+            const [iconTitle, iconDesc] = parseTitleDescription(
+              field.description
+            );
+            return (
+              <IconCard
+                key={key}
+                title={iconTitle}
+                description={iconDesc}
+                href={key}
+              />
+            );
+          })}
         </ExportCard>
-        <ExportCard title="NBA" description="National Board of Accreditation">
-          {Object.entries(nbaFields).map(([key]) => (
-            <IconCard key={key} title={formatTitle(key)} href={key} />
-          ))}
+        <ExportCard
+          title="NBA"
+          description="National Board of Accreditation"
+          forceOpen={!!searchQuery && nbaFiltered.length > 0}
+        >
+          {nbaFiltered.map(([key, field]) => {
+            const [iconTitle, iconDesc] = parseTitleDescription(
+              field.description
+            );
+            return (
+              <IconCard
+                key={key}
+                title={iconTitle}
+                description={iconDesc}
+                href={key}
+              />
+            );
+          })}
         </ExportCard>
         <ExportCard
           title="NIRF"
           description="National Institutional Ranking Framework"
+          forceOpen={!!searchQuery && nirfFiltered.length > 0}
         >
-          {Object.entries(nirfFields).map(([key]) => (
-            <IconCard key={key} title={formatTitle(key)} href={key} />
-          ))}
+          {nirfFiltered.map(([key, field]) => {
+            const [iconTitle, iconDesc] = parseTitleDescription(
+              field.description
+            );
+            return (
+              <IconCard
+                key={key}
+                title={iconTitle}
+                description={iconDesc}
+                href={key}
+              />
+            );
+          })}
         </ExportCard>
         <Link href="/input" passHref>
           <Card className="relative cursor-pointer overflow-hidden transition-colors duration-300 hover:bg-accent">
