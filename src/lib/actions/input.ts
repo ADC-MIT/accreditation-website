@@ -65,6 +65,7 @@ export async function createItem({
     Object.entries(entryData).forEach(([key, value]) => {
       formData.append(key, value.toString());
     });
+    slug = slug.replace(/-/g, '_');
     const response = await fetch(`${runtimeEnv.BACKEND_URL}/create/${slug}`, {
       method: 'POST',
       headers: {
