@@ -3,10 +3,14 @@
 import type { FormDetails, FormField } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
+import { createItem } from '@/lib/actions/input';
 import { getTableData } from '@/lib/actions/tables';
 
 import { Combobox } from '@/components/ui/combobox';
@@ -72,11 +76,14 @@ function generateZodSchema(form: FormDetails) {
 
 export function FormGenerator({
   form,
+  slug,
   onSubmit,
 }: {
   form: FormDetails;
+  slug: string;
   onSubmit?: (data: any) => void;
 }) {
+  const router = useRouter();
   const defaultValues: Record<string, any> = {};
 
   form.fields.forEach((field) => {
@@ -110,9 +117,21 @@ export function FormGenerator({
     defaultValues,
   });
 
-  const handleSubmission = (data: any) => {
-    if (onSubmit) onSubmit(data);
-    else console.log(data);
+  const handleSubmission = async (data: any) => {
+    toast.promise(
+      () =>
+        new Promise((resolve) => {
+          createItem({ slug, entryData: data });
+          router.push(`/input/tables/${slug}`);
+          // Simulate a delay to show the loading state
+          setTimeout(resolve, 500);
+        }),
+      {
+        loading: 'Creating form entry...',
+        success: 'Form entry created!',
+        error: 'Failed to create form entry!',
+      }
+    );
   };
 
   const renderField = (field: FormField, rhfField: any) => {

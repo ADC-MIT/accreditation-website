@@ -51,3 +51,35 @@ export async function getFormFields({
     throw error;
   }
 }
+
+export async function createItem({
+  slug,
+  entryData,
+}: {
+  slug: string;
+  entryData: Record<string, any>;
+}) {
+  try {
+    const token = await getToken();
+    const formData = new FormData();
+    Object.entries(entryData).forEach(([key, value]) => {
+      formData.append(key, value.toString());
+    });
+    const response = await fetch(`${runtimeEnv.BACKEND_URL}/create/${slug}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    const data = await handleApiResponse(response);
+    return data;
+  } catch (error) {
+    if (error instanceof AuthenticationError && error.expired) {
+      redirect('/?session_expired=true');
+    }
+    console.error('Error fetching tickets:', error);
+    throw error;
+  }
+}

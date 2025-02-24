@@ -29,8 +29,8 @@ function navigateToInputTable(
       }),
     {
       loading: 'Loading table data...',
-      success: 'Table data loaded',
-      error: 'Failed to load table data',
+      success: 'Table data loaded!',
+      error: 'Failed to load table data!',
     }
   );
 }

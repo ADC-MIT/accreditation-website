@@ -42,8 +42,8 @@ function navigateToInputForm(
       }),
     {
       loading: 'Loading form details...',
-      success: 'Form details loaded',
-      error: 'Failed to load form details',
+      success: 'Form details loaded!',
+      error: 'Failed to load form details!',
     }
   );
 }

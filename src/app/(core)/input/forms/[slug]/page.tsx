@@ -30,7 +30,7 @@ export default async function InputFormPage(props: {
         </div>
       </Card>
       <Card className="p-8">
-        <FormGenerator form={form} />
+        <FormGenerator form={form} slug={slug} />
       </Card>
     </div>
   );
