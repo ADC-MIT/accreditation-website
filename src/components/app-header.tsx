@@ -112,6 +112,20 @@ export default function AppHeader() {
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/summary" legacyBehavior passHref>
+                  <NavigationMenuLink
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'bg-transparent font-semibold',
+                      !isScrolled &&
+                        'text-white hover:bg-background/10 hover:text-white'
+                    )}
+                  >
+                    Summary
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
           <Button
