@@ -15,6 +15,7 @@ export async function getTableFields({
 }): Promise<TableDetails> {
   try {
     const token = await getToken();
+    slug = slug.replace(/-/g, '_');
     const response = await fetch(`${runtimeEnv.BACKEND_URL}/tables/${slug}`, {
       headers: {
         Authorization: `Bearer ${token}`,
