@@ -4,6 +4,11 @@
   "root": true,
   "pages": [
     "index",
+    "---User Manual---",
+    "input_data",
+    "export_data",
+    "view_tables",
+    "summary",
     "---Database Tables---",
     "adjunct_faculty",
     "after_graduation_entrepreneurship",
@@ -81,11 +86,6 @@
     "student_origin",
     "student_gender",
     "student_exits",
-    "student_entries",
-    "---User Manual---",
-    "input_data",
-    "export_data",
-    "view_tables",
-    "summary"
+    "student_entries"
   ]
 }
