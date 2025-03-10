@@ -83,6 +83,9 @@
     "student_exits",
     "student_entries",
     "---User Manual---",
-    "input_data"
+    "input_data",
+    "export_data",
+    "view_tables",
+    "summary"
   ]
 }
