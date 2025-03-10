@@ -81,6 +81,8 @@
     "student_origin",
     "student_gender",
     "student_exits",
-    "student_entries"
+    "student_entries",
+    "---User Manual---",
+    "input_data"
   ]
 }
