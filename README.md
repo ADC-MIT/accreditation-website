@@ -1,26 +1,61 @@
-# accreditation-website
+# Accreditation and Reporting System (Website)
 
-This is a Next.js application generated with
-[Create Fumadocs](https://github.com/fuma-nama/fumadocs).
+> ⚠️ **Note:** This repository has been archived and will no longer receive updates. For further information on the project's status and brand identity, please refer to the [organization's README](https://github.com/orgs/YCN-club).
 
-Run development server:
+The MIT-ARS, originally built for MIT Bengaluru, aims to reduce the manual work of information collection and handling that's required from institutions when applying for several nation-level accreditations.
 
-```bash
-npm run dev
-# or
-pnpm dev
-# or
-yarn dev
+This acts as an end-to-end portal that handles,
+
+- Entry of data into a centralized repository,
+- Categorization based on domain and level,
+- Storage of overlapping parameters in different accreditations, and
+- Export of data according to the accreditation specified by the user.
+
+![App Screenshot](/public/meta/app-screenshot.png)
+
+## Technologies Used
+
+1. [Next.JS](https://nextjs.org), hosted as a Standalone Deployment.
+2. [Tailwind CSS](https://tailwindcss.com), for styling.
+3. [shadcn/ui](https://ui.shadcn.com), a UI component library based on [Radix UI](https://radix-ui.com).
+4. [Fumadocs](https://fumadocs.vercel.app/), for documentation of data models and instructions.
+5. [react-pdf](https://react-pdf.org/), for exporting data into a downloadable PDF.
+
+## Development
+
+Install the dependencies using `npm`.
+
+```console
+npm install
 ```
 
-Open http://localhost:3000 with your browser to see the result.
+Alter the site configuration based on your institution's details.
 
-## Learn More
+```ts
+import type { NavLink } from '@/types';
 
-To learn more about Next.js and Fumadocs, take a look at the following
-resources:
+export type SiteConfig = typeof siteConfig;
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
-  features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [Fumadocs](https://fumadocs.vercel.app) - learn about Fumadocs
+export const siteConfig = {
+  name: 'MIT-ARS',
+  description: 'The Accreditation and Ranking System for MIT Bengaluru.',
+  institute: 'Manipal Institute of Technology, Bengaluru',
+
+  navLinks: [] satisfies NavLink[],
+};
+```
+
+Populate the environment variables based on your standalone deployment.
+
+```env
+# Backend URL
+NEXT_PUBLIC_BACKEND_URL=localhost:8000/api
+# Toggle certificate verification (0 = disabled, 1 = enabled)
+NODE_TLS_REJECT_UNAUTHORIZED=0
+```
+
+Run the development server using the following command.
+
+```console
+npm dev
+```
