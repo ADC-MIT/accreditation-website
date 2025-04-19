@@ -57,5 +57,5 @@ NODE_TLS_REJECT_UNAUTHORIZED=0
 Run the development server using the following command.
 
 ```console
-npm dev
+npm run dev
 ```
