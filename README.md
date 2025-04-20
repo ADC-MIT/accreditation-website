@@ -21,6 +21,10 @@ This acts as an end-to-end portal that handles,
 4. [Fumadocs](https://fumadocs.vercel.app/), for documentation of data models and instructions.
 5. [react-pdf](https://react-pdf.org/), for exporting data into a downloadable PDF.
 
+## Video Demonstration
+
+https://github.com/user-attachments/assets/c060a2d4-9d08-4c26-af8d-7fe46c9d93d5
+
 ## Development
 
 Install the dependencies using `npm`.
